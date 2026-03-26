@@ -1,0 +1,1859 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Amber+</title>
+  <link rel="preconnect" href="https://api.fontshare.com">
+  <link href="https://api.fontshare.com/v2/css?f[]=open-sauce-one@400,500,600,700,800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Open Sauce One', sans-serif; background: #fff; color: #111928; overflow-x: hidden; }
+    a { text-decoration: none; color: inherit; }
+    button { cursor: pointer; font-family: inherit; }
+
+    /* ============================================================
+       NAVBAR
+    ============================================================ */
+    .ap-navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      width: 100%;
+      height: 60px;
+      background: #fff;
+      border-bottom: 1px solid #E5E7EB;
+      box-shadow: 0px 4px 10px rgba(0,0,0,0.10);
+      display: flex;
+      animation: fadeIn 0.5s ease both;
+      align-items: center;
+    }
+    .ap-navbar-inner {
+      width: 100%;
+      padding: 0 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .ap-logo img { display: block; }
+    .ap-nav-links {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .ap-nav-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      border: none;
+      background: transparent;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: 500;
+      color: #111928;
+      white-space: nowrap;
+    }
+    .ap-nav-btn img { width: 18px; height: 18px; object-fit: contain; }
+    .ap-nav-btn.icon-lg img { width: 24px; height: 24px; }
+    .ap-nav-btn-login {
+      border: 1px solid #D1D5DB;
+      border-radius: 6px;
+    }
+    .ap-nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 6px 8px;
+      border: 1px solid #D1D5DB;
+      border-radius: 6px;
+    }
+    .ap-nav-menu .user-bubble {
+      width: 26px; height: 26px;
+      background: #F3F4F6;
+      border-radius: 99px;
+      overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .ap-nav-menu .user-bubble img { width: 12px; height: 12px; }
+    .ap-nav-menu .bars img { width: 18px; height: 18px; }
+
+    /* ============================================================
+       HERO — MMT-style
+    ============================================================ */
+    .ap-hero {
+      position: relative;
+      width: 100%;
+      min-height: 600px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 56px 40px 64px;
+      overflow: hidden;
+      background: #0a0a14;
+    }
+    /* Background image */
+    .ap-hero-bg {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      opacity: 0.75;
+      animation: fadeIn 1.2s ease both;
+    }
+    /* Dark tinted overlay */
+    .ap-hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.65) 60%, rgba(0,0,0,0.80) 100%);
+      pointer-events: none;
+    }
+    /* Headline above card */
+    /* ── Page load animations ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    @keyframes cardRise {
+      from { opacity: 0; transform: translateY(40px) scale(0.98); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .ap-hero-headline {
+      position: relative; z-index: 2;
+      text-align: center;
+      margin-bottom: 28px;
+    }
+    .ap-hero-headline .ap-plus-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: #fff;
+      font-size: 13px; font-weight: 600;
+      padding: 6px 16px; border-radius: 99px;
+      margin-bottom: 16px;
+      letter-spacing: 0.3px;
+      animation: fadeUp 0.6s ease both;
+      animation-delay: 0.1s;
+    }
+    .ap-hero-headline h1 {
+      font-size: 48px; font-weight: 700; color: #fff;
+      line-height: 1.2; letter-spacing: 0;
+      margin-bottom: 12px;
+      animation: fadeUp 0.7s ease both;
+      animation-delay: 0.25s;
+    }
+    .ap-hero-headline p {
+      font-size: 16px; font-weight: 400; color: rgba(255,255,255,0.85);
+      line-height: 1.5; letter-spacing: 0.09px;
+      animation: fadeUp 0.7s ease both;
+      animation-delay: 0.4s;
+    }
+
+    /* ── Main Service Card ── */
+    .ap-hero-main-card {
+      position: relative; z-index: 2;
+      width: 1200px;
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.4), 0 8px 24px rgba(0,0,0,0.2);
+      overflow: hidden;
+      animation: cardRise 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+      animation-delay: 0.55s;
+    }
+
+    /* Service tabs row */
+    .ap-svc-tabs {
+      display: flex;
+      align-items: stretch;
+      border-bottom: 1px solid #E5E7EB;
+      background: #fff;
+    }
+    .ap-svc-tab {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      padding: 16px 6px 12px;
+      border: none; border-bottom: 3px solid transparent;
+      background: transparent; cursor: pointer;
+      font-size: 12px; font-weight: 600; color: #6B7280;
+      text-align: center;
+      position: relative;
+      transition: color 0.15s;
+      font-family: 'Open Sauce One', sans-serif;
+      line-height: 1.35;
+    }
+    .ap-svc-tab .stab-icon {
+      width: 36px; height: 36px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .ap-svc-tab .stab-icon svg {
+      width: 28px; height: 28px;
+      stroke: #9CA3AF; fill: none;
+      stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round;
+      transition: stroke 0.15s;
+    }
+    .ap-svc-tab.active {
+      color: #ED3A56;
+      border-bottom-color: #ED3A56;
+      font-weight: 700;
+    }
+    .ap-svc-tab.active .stab-icon svg { stroke: #ED3A56; }
+    .ap-svc-tab:hover:not(.active) { color: #374151; }
+    .ap-svc-tab:hover:not(.active) .stab-icon svg { stroke: #374151; }
+
+    /* Service panels */
+    .ap-svc-panel { display: none; padding: 28px 32px 24px; }
+    .ap-svc-panel.active { display: block; }
+
+    /* Forex sub-tabs toggle */
+    .ap-forex-sub-tabs {
+      display: flex; gap: 0;
+      background: #F9FAFB;
+      border: 1.5px solid #E5E7EB;
+      border-radius: 40px;
+      padding: 4px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    }
+    .ap-forex-sub-tab {
+      display: flex; align-items: center; gap: 6px;
+      padding: 8px 18px;
+      border: 1.5px solid transparent;
+      border-radius: 40px;
+      background: transparent;
+      font-size: 13px; font-weight: 600; color: #6B7280;
+      cursor: pointer;
+      font-family: 'Open Sauce One', sans-serif;
+      transition: all 0.15s;
+    }
+    .ap-forex-sub-tab svg { width:14px; height:14px; stroke:#9CA3AF; fill:none; stroke-width:1.8; }
+    .ap-forex-sub-tab.active {
+      background: #fff; color: #1E3A5F;
+      border-color: #E5E7EB;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+    }
+    .ap-forex-sub-tab.active svg { stroke: #1E3A5F; }
+    /* Forex rate bar */
+    .ap-forex-rate-bar {
+      display: flex; align-items: center; gap: 10px;
+      background: #F0FDF4; border: 1px solid #D1FAE5;
+      border-radius: 40px; padding: 10px 20px;
+    }
+    .ap-forex-rate-bar span { font-size: 13px; color: #374151; font-weight: 500; }
+    .ap-forex-rate-bar strong { font-size: 16px; font-weight: 800; color: #111928; letter-spacing: -0.3px; }
+
+    /* Panel: fields bar */
+    .ap-panel-fields {
+      display: grid;
+      border: 1px solid #E5E7EB;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+    .ap-panel-fields.cols-2 { grid-template-columns: 1fr 1fr; }
+    .ap-panel-fields.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+    .ap-panel-fields.cols-4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+    .ap-pf {
+      padding: 14px 20px;
+      border-right: 1px solid #E5E7EB;
+    }
+    .ap-pf:last-child { border-right: none; }
+    .ap-pf-label {
+      font-size: 11px; font-weight: 700; color: #9CA3AF;
+      text-transform: uppercase; letter-spacing: 0.6px;
+      margin-bottom: 8px;
+    }
+    .ap-pf-value {
+      font-size: 18px; font-weight: 700; color: #111928;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .ap-pf-value select, .ap-pf-value input {
+      font-size: 18px; font-weight: 700; color: #111928;
+      border: none; outline: none; background: transparent;
+      font-family: 'Open Sauce One', sans-serif; width: 100%; cursor: pointer;
+    }
+    .ap-pf-value input::placeholder { color: #D1D5DB; font-weight: 400; font-size: 16px; }
+    .ap-pf-sub { font-size: 12px; color: #6B7280; margin-top: 4px; font-weight: 400; }
+    .ap-pf-flag { font-size: 20px; }
+
+    /* Panel bottom row */
+    .ap-panel-bottom {
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .ap-panel-note {
+      font-size: 13px; font-weight: 400; color: #6B7280;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .ap-panel-note svg { width:14px; height:14px; stroke: #059669; fill:none; flex-shrink:0; }
+    .ap-panel-note strong { color: #059669; font-weight: 600; }
+    .ap-panel-cta {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 16px 32px;
+      background: #E8526A;
+      color: #fff; font-size: 16px; font-weight: 600;
+      border: none; border-radius: 12px; cursor: pointer;
+      box-shadow: none;
+      letter-spacing: 0.3px;
+      font-family: 'Open Sauce One', sans-serif;
+      transition: background 0.15s, transform 0.15s;
+    }
+    .ap-panel-cta:hover { background: #D94460; transform: translateY(-1px); }
+    .ap-panel-cta svg { width:18px; height:18px; stroke:#fff; fill:none; stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round; }
+
+    /* ============================================================
+       BROWSE BY CATEGORIES
+    ============================================================ */
+    .ap-categories {
+      background: #fff;
+      padding: 48px 80px;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+    .ap-section-heading {
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 1.25;
+      color: #1F2A37;
+    }
+    .ap-cats-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .ap-cats-row {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 16px;
+    }
+    .ap-cat-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      padding: 24px 8px 20px;
+      border-radius: 16px;
+      cursor: pointer;
+    }
+    .ap-cat-item.highlighted {
+      background: #F3F4F6;
+    }
+    .ap-cat-icon-wrap {
+      position: relative;
+      width: 96px;
+      height: 96px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .ap-cat-icon-wrap .cat-circle {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    .ap-cat-icon-wrap .cat-icon {
+      position: relative;
+      z-index: 1;
+      width: 56px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .ap-cat-icon-wrap .cat-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    .cat-label {
+      text-align: center;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1.4;
+      color: #1F2A37;
+      letter-spacing: 0.08px;
+    }
+
+    /* ============================================================
+       BEST DEALS
+    ============================================================ */
+    .ap-best-deals {
+      background: #F3F4F6;
+      padding: 48px 80px 56px;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+    .ap-deals-track-wrap {
+      position: relative;
+    }
+    .ap-deals-track {
+      display: flex;
+      gap: 20px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      padding-right: 60px;
+    }
+    .ap-deals-track::-webkit-scrollbar { display: none; }
+    .ap-deal-card {
+      flex-shrink: 0;
+      width: 308px;
+      background: #fff;
+      border: 1px solid #E5E7EB;
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .ap-deal-img {
+      position: relative;
+      width: 100%;
+      height: 180px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .ap-deal-img img.bg {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .ap-deal-img .logo-badge {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #fff;
+      border-radius: 10px;
+      padding: 14px 24px;
+      min-width: 160px;
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+    }
+    .ap-deal-body {
+      padding: 16px 16px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex: 1;
+    }
+    .ap-deal-title {
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 1.45;
+      color: #111928;
+    }
+    .ap-deal-desc {
+      font-size: 13px;
+      font-weight: 400;
+      line-height: 1.55;
+      color: #6B7280;
+      flex: 1;
+    }
+    .ap-deal-btn {
+      border: 1.5px solid #ED3A56;
+      background: transparent;
+      color: #ED3A56;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 11px 16px;
+      border-radius: 8px;
+      width: 100%;
+      cursor: pointer;
+      font-family: 'Open Sauce One', sans-serif;
+      transition: background 0.15s;
+      margin-top: 4px;
+    }
+    .ap-deal-btn:hover { background: #FEE9EF; }
+    .ap-deals-arrow {
+      position: absolute;
+      right: 0;
+      top: 90px;
+      width: 36px; height: 36px;
+      background: #fff;
+      border: 1px solid #D1D5DB;
+      border-radius: 99px;
+      display: flex; align-items: center; justify-content: center;
+      z-index: 2;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .ap-deals-arrow svg { width: 16px; height: 16px; }
+
+    /* ============================================================
+       EXPLORE STUDENT BENEFITS
+    ============================================================ */
+    .ap-explore {
+      background: #fff;
+      padding: 48px 80px;
+      display: flex;
+      align-items: center;
+      gap: 48px;
+    }
+    .ap-explore-img {
+      flex-shrink: 0;
+      width: 480px;
+      height: 320px;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #E5E7EB;
+    }
+    .ap-explore-img img { width: 100%; height: 100%; object-fit: cover; }
+    .ap-explore-text {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .ap-explore-text h2 {
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 1.25;
+      color: #1F2A37;
+    }
+    .ap-explore-text p {
+      font-size: 18px;
+      font-weight: 400;
+      line-height: 1.5;
+      color: #6B7280;
+      letter-spacing: 0.09px;
+    }
+
+    /* ============================================================
+       WHY AMBER+
+    ============================================================ */
+    .ap-why {
+      background: #F9FAFB;
+      padding: 48px 80px;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+    .ap-why-header {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .ap-why-header p {
+      font-size: 18px;
+      font-weight: 400;
+      line-height: 1.5;
+      color: #6B7280;
+      letter-spacing: 0.09px;
+    }
+    .ap-why-cards {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+      justify-content: center;
+    }
+    .ap-why-card {
+      flex: 1;
+      position: relative;
+      background: #fff;
+      border: 1px solid #E5E7EB;
+      border-radius: 12px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      overflow: hidden;
+      box-shadow: 0px 1px 2px rgba(0,0,0,0.08);
+      min-height: 189px;
+    }
+    .ap-why-card .card-circle {
+      position: absolute;
+      left: 6px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 158px;
+      height: 158px;
+      pointer-events: none;
+    }
+    .ap-why-card .card-icon {
+      position: relative;
+      width: 46px;
+      height: 46px;
+      overflow: hidden;
+      flex-shrink: 0;
+      z-index: 1;
+    }
+    .ap-why-card .card-icon img { width: 100%; height: 100%; object-fit: contain; }
+    .ap-why-card-body { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 8px; }
+    .ap-why-card h3 {
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 1.25;
+      color: #111928;
+      letter-spacing: 0.027px;
+    }
+    .ap-why-card p {
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1.5;
+      color: #6B7280;
+      letter-spacing: 0.08px;
+    }
+
+    /* ============================================================
+       OUR PARTNERS
+    ============================================================ */
+    .ap-partners {
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+    }
+    .ap-partners-top {
+      padding: 48px 80px;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      align-items: center;
+    }
+    .ap-partners-header {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .ap-partners-header h2 { font-size: 24px; font-weight: 700; line-height: 1.25; color: #000; }
+    .ap-partners-header p { font-size: 18px; font-weight: 400; line-height: 1.5; color: #6B7280; letter-spacing: 0.09px; }
+    .ap-partners-logos {
+      display: flex;
+      gap: 16px;
+      overflow: hidden;
+      width: 1280px;
+    }
+    .ap-partner-logo {
+      flex-shrink: 0;
+      width: 152px;
+      height: 66px;
+      background: #fff;
+      border: 1px solid #E5E7EB;
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .ap-partner-logo img { max-width: 124px; max-height: 40px; object-fit: contain; }
+    .ap-partners-bottom {
+      padding: 0 80px 48px;
+    }
+    .ap-partner-banner {
+      position: relative;
+      width: 1280px;
+      height: 246px;
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .ap-partner-banner > img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 16px;
+    }
+    .ap-partner-cta-wrap {
+      position: absolute;
+      left: 1072px;
+      top: 158px;
+    }
+    .ap-partner-cta-btn {
+      background: #FEE9EF;
+      border: none;
+      border-radius: 8px;
+      height: 48px;
+      padding: 0 24px;
+      font-size: 16px;
+      font-weight: 700;
+      color: #E53863;
+      cursor: pointer;
+    }
+    .ap-partner-cta-btn:hover { background: #FDC8D3; }
+
+    /* ============================================================
+       FAQs
+    ============================================================ */
+    .ap-faqs {
+      background: #F9FAFB;
+      padding: 48px 80px;
+    }
+    .ap-faqs-box {
+      background: #F9FAFB;
+      border: 1px solid #E5E7EB;
+      border-radius: 8px;
+      padding: 8px;
+      overflow: hidden;
+    }
+    .ap-faqs-title {
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 1.25;
+      color: #111928;
+      padding: 16px;
+      letter-spacing: 0.03px;
+    }
+    .ap-faq-item {
+      border-bottom: 1px solid #E5E7EB;
+      overflow: hidden;
+    }
+    .ap-faq-item:last-of-type { border-bottom: none; }
+    .ap-faq-btn {
+      width: 100%;
+      background: transparent;
+      border: none;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 16px;
+      height: 56px;
+      text-align: left;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+    .ap-faq-btn:hover { background: rgba(0,0,0,0.02); }
+    .ap-faq-q {
+      flex: 1;
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 1.5;
+      color: #1F2A37;
+    }
+    .ap-faq-icon {
+      flex-shrink: 0;
+      width: 16px;
+      height: 16px;
+      overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+      transition: transform 0.2s;
+    }
+    .ap-faq-icon svg { width: 16px; height: 16px; display: block; }
+    .ap-faq-item.open .ap-faq-icon { transform: rotate(180deg); }
+    .ap-faq-answer {
+      display: none;
+      padding: 4px 16px 16px;
+    }
+    .ap-faq-item.open .ap-faq-answer { display: block; }
+    .ap-faq-answer p {
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.64;
+      color: #111928;
+      letter-spacing: 0.035px;
+    }
+    .ap-see-more {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 12px 16px;
+      background: transparent;
+      border: none;
+      color: #ED3A56;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+    .ap-see-more img { width: 20px; height: 20px; }
+
+    /* ============================================================
+       FOOTER
+    ============================================================ */
+    .ap-footer {
+      background: #fff;
+      padding: 64px 80px 80px;
+      display: flex;
+      flex-direction: column;
+    }
+    .ap-footer-inner {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 32px;
+    }
+    .ap-footer-brand {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      flex-shrink: 0;
+      width: 378px;
+    }
+    .ap-footer-brand-top {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .ap-footer-amber-logo { height: 20px; width: 83px; object-fit: contain; }
+    .ap-footer-copy {
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.5;
+      color: #6B7280;
+      letter-spacing: 0.035px;
+    }
+    .ap-trustpilot-box {
+      background: #F9FAFB;
+      border-radius: 8px;
+      padding: 16px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .ap-trustpilot-row {
+      display: flex;
+      align-items: center;
+    }
+    .ap-trustpilot-logo { height: 30px; object-fit: contain; }
+    .ap-trustpilot-divider { width: 1px; height: 28px; background: #D1D5DB; margin: 0 12px; }
+    .ap-trustpilot-score {
+      font-size: 16px;
+      font-weight: 700;
+      color: #1F2A37;
+      text-decoration: underline;
+      letter-spacing: 0.024px;
+    }
+    .ap-trustpilot-review { font-size: 14px; font-weight: 400; color: #4B5563; letter-spacing: 0.035px; }
+    .ap-trustpilot-review strong { font-weight: 500; color: #111928; }
+    .ap-app-box {
+      background: #F9FAFB;
+      border-radius: 8px;
+      padding: 16px 20px;
+      display: flex;
+      gap: 16px;
+      align-items: flex-end;
+    }
+    .ap-app-dl { display: flex; flex-direction: column; gap: 12px; }
+    .ap-app-dl-label { font-size: 14px; font-weight: 500; color: #4B5563; }
+    .ap-app-icons { display: flex; gap: 16px; align-items: center; }
+    .ap-payment { display: flex; flex-direction: column; gap: 12px; }
+    .ap-payment-label { font-size: 14px; font-weight: 500; color: #4B5563; }
+    .ap-payment-icons { display: flex; gap: 16px; align-items: center; }
+    .ap-payment-icons img { height: 18px; object-fit: contain; }
+    .ap-footer-col { display: flex; flex-direction: column; gap: 12px; flex-shrink: 0; }
+    .ap-footer-col-title { font-size: 16px; font-weight: 700; color: #111928; line-height: 1.25; letter-spacing: 0.024px; }
+    .ap-footer-links { display: flex; flex-direction: column; gap: 16px; }
+    .ap-footer-links.support { gap: 8px; }
+    .ap-footer-link-row { display: flex; align-items: center; gap: 8px; }
+    .ap-footer-link-row a { font-size: 14px; font-weight: 400; color: #6B7280; line-height: 1.5; letter-spacing: 0.035px; white-space: nowrap; }
+    .ap-footer-badge {
+      background: #FEE9EF;
+      color: #ED3A56;
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 14px;
+      padding: 2px 8px;
+      border-radius: 99px;
+      white-space: nowrap;
+      letter-spacing: 0.018px;
+      flex-shrink: 0;
+    }
+    .ap-contact-col { display: flex; flex-direction: column; gap: 12px; flex-shrink: 0; width: 252px; }
+    .ap-contact-badge {
+      background: #fff;
+      border: 1px solid #E5E7EB;
+      border-radius: 8px;
+      padding: 12px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    .ap-contact-badge svg { flex-shrink: 0; }
+    .ap-contact-badge span { font-size: 14px; font-weight: 400; color: #6B7280; line-height: 1.5; letter-spacing: 0.035px; }
+    .ap-follow { display: flex; flex-direction: column; gap: 12px; }
+    .ap-follow-label { font-size: 14px; font-weight: 500; color: #4B5563; line-height: 1.5; }
+    .ap-social-icons { display: flex; gap: 16px; align-items: center; }
+    .ap-social-icons a { text-decoration: none; }
+  </style>
+  <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+</head>
+<body>
+
+<!-- ============================================================
+     NAVBAR
+============================================================ -->
+<nav class="ap-navbar">
+  <div class="ap-navbar-inner">
+    <a href="index.html" class="ap-logo">
+      <svg xmlns="http://www.w3.org/2000/svg" height="28" viewBox="0 0 315 85" fill="none" style="display:block;"><g clip-path="url(#ap-logo-clip)"><path fill="#231F20" d="M36.06 37.53H47.6v45.99H36.06v-4.86c-2.25 2.14-4.51 3.68-6.78 4.63s-4.72 1.42-7.37 1.42c-5.94 0-11.08-2.3-15.41-6.91S0 67.47 0 60.62 2.1 47.7 6.29 43.16s9.29-6.81 15.28-6.81q4.14 0 7.77 1.56c2.42 1.04 4.66 2.61 6.71 4.69v-5.07zM23.93 47c-3.57 0-6.53 1.26-8.89 3.78s-3.54 5.76-3.54 9.7 1.2 7.24 3.6 9.81c2.4 2.56 5.36 3.85 8.87 3.85s6.63-1.26 9.02-3.78 3.58-5.83 3.58-9.91-1.19-7.24-3.58-9.72q-3.585-3.72-9.06-3.72zM59.18 37.53h11.54v5.28c1.97-2.17 4.17-3.79 6.58-4.86s5.04-1.61 7.89-1.61 5.47.71 7.78 2.11c2.31 1.41 4.17 3.47 5.58 6.17 1.83-2.71 4.08-4.76 6.75-6.17s5.58-2.11 8.74-2.11 6.15.76 8.63 2.28 4.26 3.51 5.35 5.96 1.63 6.44 1.63 11.96v26.97h-11.62V60.18c0-5.21-.65-8.74-1.94-10.59-1.3-1.85-3.24-2.77-5.83-2.77-1.97 0-3.74.56-5.3 1.69s-2.73 2.68-3.49 4.67q-1.14 2.985-1.14 9.57V83.5H88.71V61.22c0-4.11-.3-7.09-.91-8.94s-1.52-3.22-2.73-4.12q-1.815-1.35-4.41-1.35c-1.92 0-3.66.57-5.23 1.71s-2.74 2.74-3.52 4.8q-1.17 3.09-1.17 9.72V83.5H59.2V37.51zM152.079 19.77V42.6c2.08-2.08 4.34-3.65 6.76-4.69s5.02-1.56 7.78-1.56q9 0 15.3 6.81t6.3 17.46c0 7.1-2.17 12.58-6.51 17.18s-9.48 6.91-15.43 6.91c-2.65 0-5.12-.47-7.4-1.42s-4.55-2.49-6.81-4.63v4.86h-11.46V19.77h11.47m12.13 27.22c-3.64 0-6.65 1.24-9.05 3.72s-3.59 5.72-3.59 9.72 1.2 7.39 3.59 9.91 5.41 3.78 9.05 3.78 6.49-1.28 8.9-3.85c2.41-2.56 3.61-5.83 3.61-9.81s-1.18-7.18-3.55-9.7-5.35-3.78-8.96-3.78zM243.849 63.86h-37.07q.81 4.905 4.29 7.8c2.33 1.93 5.29 2.9 8.9 2.9 4.31 0 8.02-1.51 11.12-4.52l9.72 4.56c-2.42 3.44-5.33 5.98-8.71 7.63s-7.4 2.47-12.05 2.47c-7.21 0-13.09-2.28-17.63-6.83q-6.81-6.825-6.81-17.1c0-6.85 2.26-12.84 6.78-17.48s10.19-6.95 17.01-6.95c7.24 0 13.13 2.32 17.67 6.95 4.54 4.64 6.81 10.76 6.81 18.37l-.04 2.2zm-11.54-9.09c-.76-2.56-2.26-4.65-4.51-6.26-2.24-1.61-4.85-2.41-7.81-2.41-3.22 0-6.04.9-8.47 2.71-1.52 1.13-2.94 3.11-4.23 5.96zM250.49 37.53h9.89v5.79c1.07-2.28 2.49-4.02 4.27-5.2s3.72-1.78 5.83-1.78c1.49 0 3.06.4 4.69 1.18l-3.59 9.93c-1.35-.68-2.47-1.01-3.34-1.01-1.77 0-3.28 1.1-4.5 3.3-1.23 2.2-1.84 6.51-1.84 12.93l.04 2.24v18.6h-11.46V37.52z"/><path fill="#ED3C57" d="M288.46 15.85V0h10.57v15.85h15.81v10.57h-15.81v15.81h-10.57V26.42h-15.81V15.85z"/></g><defs><clipPath id="ap-logo-clip"><path fill="#fff" d="M0 0h314.83v84.7H0z"/></clipPath></defs></svg>
+    </a>
+    <div style="display:flex;align-items:center;gap:12px;">
+      <div style="display:flex;align-items:center;gap:4px;">
+        <button class="ap-nav-btn icon-lg">
+          <img src="https://www.figma.com/api/mcp/asset/ceaae38d-96d7-4f81-af0b-11f72450c913" alt="" />
+          Download App
+        </button>
+        <button class="ap-nav-btn">
+          <img src="https://www.figma.com/api/mcp/asset/4c90b26c-8395-4a68-828e-00f90bb6cf44" alt="" />
+          Support
+        </button>
+        <button class="ap-nav-btn">
+          <img src="https://www.figma.com/api/mcp/asset/3e2b4858-1170-406f-80b6-87bcfd24c071" alt="" />
+          Accommodation
+        </button>
+        <button class="ap-nav-btn ap-nav-btn-login">
+          <img src="https://www.figma.com/api/mcp/asset/555b2476-b181-496d-bfb9-88d47177e48c" alt="" />
+          Login
+        </button>
+      </div>
+      <div class="ap-nav-menu">
+        <div class="user-bubble">
+          <img src="https://www.figma.com/api/mcp/asset/0a1c02ac-14e2-41b2-8568-ba43eb73416b" alt="" />
+        </div>
+        <div class="bars">
+          <img src="https://www.figma.com/api/mcp/asset/9035cb64-5be3-496b-b7ec-95c14cfb3dae" alt="" />
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ============================================================
+     HERO — MMT-style
+============================================================ -->
+<section class="ap-hero">
+  <!-- Background image -->
+  <img class="ap-hero-bg" src="https://images.unsplash.com/photo-1530521954074-e64f6810b32d?w=1600&q=80" alt="" />
+  <div class="ap-hero-overlay"></div>
+
+  <!-- Headline -->
+  <div class="ap-hero-headline">
+    <div class="ap-plus-badge">Amber+ Exclusive</div>
+    <h1>Everything a Student Needs Abroad</h1>
+    <p>Flights · Forex · SIM Cards · Loans · Bank Accounts · Airport Pickup & more</p>
+  </div>
+
+  <!-- Main Service Card -->
+  <div class="ap-hero-main-card">
+
+    <!-- ── Service Tab Row ── -->
+    <div class="ap-svc-tabs">
+
+      <button class="ap-svc-tab active" onclick="switchHeroTab('forex',this)">
+        <div class="stab-icon"><svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div>
+        Forex Card
+      </button>
+
+      <button class="ap-svc-tab" onclick="switchHeroTab('flights',this)">
+        <div class="stab-icon"><svg viewBox="0 0 24 24"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21 4 19 4s-2 1-3.5 2.5L11 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg></div>
+        Student Flights
+      </button>
+
+      <button class="ap-svc-tab" onclick="switchHeroTab('sim',this)">
+        <div class="stab-icon"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/><path d="M8 6h2v2H8zM14 6h2v2h-2zM8 10h2v2H8zM14 10h2v2h-2z"/></svg></div>
+        Overseas SIM
+      </button>
+
+      <button class="ap-svc-tab" onclick="switchHeroTab('loan',this)">
+        <div class="stab-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+        Student Loan
+      </button>
+
+      <button class="ap-svc-tab" onclick="switchHeroTab('bank',this)">
+        <div class="stab-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+        Bank Account
+      </button>
+
+      <button class="ap-svc-tab" onclick="switchHeroTab('pickup',this)">
+        <div class="stab-icon"><svg viewBox="0 0 24 24"><path d="M19 17H5v2H3v-4.5l2.38-6.37A2 2 0 0 1 7.24 7h9.52a2 2 0 0 1 1.86 1.27L21 14.5V19h-2z"/><circle cx="7.5" cy="17.5" r="1.5"/><circle cx="16.5" cy="17.5" r="1.5"/></svg></div>
+        Airport Pickup
+      </button>
+
+      <button class="ap-svc-tab" onclick="switchHeroTab('luggage',this)">
+        <div class="stab-icon"><svg viewBox="0 0 24 24"><rect x="6" y="7" width="12" height="14" rx="2"/><path d="M9 7V5a3 3 0 0 1 6 0v2"/><line x1="12" y1="12" x2="12" y2="16"/></svg></div>
+        Luggage Shipping
+      </button>
+
+      <button class="ap-svc-tab" onclick="switchHeroTab('courses',this)">
+        <div class="stab-icon"><svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div>
+        Courses
+      </button>
+
+      <button class="ap-svc-tab" onclick="switchHeroTab('wellness',this)">
+        <div class="stab-icon"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+        Wellness
+      </button>
+
+      <button class="ap-svc-tab" onclick="switchHeroTab('essentials',this)">
+        <div class="stab-icon"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div>
+        Essentials Kit
+      </button>
+
+    </div><!-- /ap-svc-tabs -->
+
+    <!-- ══ PANEL: Student Flights ══ -->
+    <div class="ap-svc-panel" id="hero-panel-flights">
+      <div class="ap-panel-fields cols-4">
+        <div class="ap-pf">
+          <div class="ap-pf-label">From</div>
+          <div class="ap-pf-value">
+            <select><option>India (IND)</option><option>UK (LHR)</option><option>USA (JFK)</option><option>Australia (SYD)</option></select>
+          </div>
+          <div class="ap-pf-sub">Origin Country</div>
+        </div>
+        <div class="ap-pf">
+          <div class="ap-pf-label">To</div>
+          <div class="ap-pf-value">
+            <select><option>London, UK</option><option>New York, USA</option><option>Sydney, AU</option><option>Toronto, CA</option><option>Berlin, DE</option></select>
+          </div>
+          <div class="ap-pf-sub">Destination City</div>
+        </div>
+        <div class="ap-pf">
+          <div class="ap-pf-label">Travel Date</div>
+          <div class="ap-pf-value">
+            <input type="date" style="font-size:15px;font-weight:600;" />
+          </div>
+          <div class="ap-pf-sub">Departure</div>
+        </div>
+        <div class="ap-pf">
+          <div class="ap-pf-label">Passengers</div>
+          <div class="ap-pf-value">
+            <select><option>1 Passenger</option><option>2 Passengers</option><option>3 Passengers</option></select>
+          </div>
+          <div class="ap-pf-sub">Travellers</div>
+        </div>
+      </div>
+      <div class="ap-panel-bottom">
+        <div class="ap-panel-note">
+          <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <span>Student discount up to <strong>30% off</strong> on all bookings</span>
+        </div>
+        <button class="ap-panel-cta">
+          Search Flights
+          <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- ══ PANEL: Forex Card ══ -->
+    <div class="ap-svc-panel active" id="hero-panel-forex">
+      <!-- Top row: sub-tabs + rate note -->
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;">
+        <div class="ap-forex-sub-tabs">
+          <button class="ap-forex-sub-tab active">
+            <svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+            Forex Card
+          </button>
+          <button class="ap-forex-sub-tab">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M14.5 8.5A2.5 2.5 0 0 0 12 6a2.5 2.5 0 0 0 0 5 2.5 2.5 0 0 1 0 5A2.5 2.5 0 0 1 9.5 13.5M12 4v2M12 16v2"/></svg>
+            Currency
+          </button>
+        </div>
+        <div class="ap-forex-rate-bar">
+          <span style="font-size:18px;">💵</span>
+          <span>Current <strong id="hfx-curr-note">USD</strong> Conversion Rate Is</span>
+          <strong id="hfx-rate-note-val">83.92</strong>
+        </div>
+      </div>
+      <!-- 3-col fields -->
+      <div class="ap-panel-fields cols-3" style="margin-bottom:20px;">
+        <div class="ap-pf">
+          <div class="ap-pf-label">Currency</div>
+          <div class="ap-pf-value">
+            <span style="font-size:20px;" id="hfx-flag">🇺🇸</span>
+            <select id="hfx-currency" onchange="updateHeroForex()">
+              <option value="GBP" data-rate="106.84" data-flag="🇬🇧">GBP</option>
+              <option value="USD" data-rate="83.92" data-flag="🇺🇸" selected>USD</option>
+              <option value="CAD" data-rate="61.45" data-flag="🇨🇦">CAD</option>
+              <option value="AUD" data-rate="54.12" data-flag="🇦🇺">AUD</option>
+              <option value="EUR" data-rate="91.78" data-flag="🇪🇺">EUR</option>
+            </select>
+          </div>
+          <div class="ap-pf-sub" id="hfx-curr-name">US Dollar</div>
+        </div>
+        <div class="ap-pf">
+          <div class="ap-pf-label">Forex Amount</div>
+          <div class="ap-pf-value">
+            <input type="number" id="hfx-amount" placeholder="1000" value="1000" oninput="updateHeroForex()" />
+          </div>
+          <div class="ap-pf-sub" id="hfx-curr-label">USD</div>
+        </div>
+        <div class="ap-pf" style="background:#F9FAFB;">
+          <div class="ap-pf-label">INR Amount</div>
+          <div class="ap-pf-value" style="color:#059669;" id="hfx-inr-display">₹83,920</div>
+          <div class="ap-pf-sub">Indian Rupee</div>
+        </div>
+      </div>
+      <div class="ap-panel-bottom">
+        <div class="ap-panel-note">
+          <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <span>Zero forex markup · <strong>Best rates guaranteed</strong></span>
+        </div>
+        <button class="ap-panel-cta">
+          Continue
+          <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- ══ PANEL: Overseas SIM ══ -->
+    <div class="ap-svc-panel" id="hero-panel-sim">
+      <div class="ap-panel-fields cols-3">
+        <div class="ap-pf">
+          <div class="ap-pf-label">Destination Country</div>
+          <div class="ap-pf-value">
+            <select><option>🇬🇧 United Kingdom</option><option>🇺🇸 United States</option><option>🇨🇦 Canada</option><option>🇦🇺 Australia</option><option>🇩🇪 Germany</option><option>🇫🇷 France</option></select>
+          </div>
+          <div class="ap-pf-sub">Where are you going?</div>
+        </div>
+        <div class="ap-pf">
+          <div class="ap-pf-label">Data Plan</div>
+          <div class="ap-pf-value">
+            <select><option>10 GB / Month</option><option>20 GB / Month</option><option>Unlimited Data</option><option>5 GB / Month</option></select>
+          </div>
+          <div class="ap-pf-sub">Monthly data allowance</div>
+        </div>
+        <div class="ap-pf">
+          <div class="ap-pf-label">Validity</div>
+          <div class="ap-pf-value">
+            <select><option>1 Month</option><option>3 Months</option><option>6 Months</option><option>1 Year</option></select>
+          </div>
+          <div class="ap-pf-sub">Plan duration</div>
+        </div>
+      </div>
+      <div class="ap-panel-bottom">
+        <div class="ap-panel-note">
+          <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <span>Delivered to your door · <strong>Activate before you fly</strong></span>
+        </div>
+        <button class="ap-panel-cta">
+          Get SIM Card
+          <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- ══ PANEL: Student Loan ══ -->
+    <div class="ap-svc-panel" id="hero-panel-loan">
+      <div class="ap-panel-fields cols-4">
+        <div class="ap-pf">
+          <div class="ap-pf-label">Loan Amount</div>
+          <div class="ap-pf-value">
+            <select><option>₹10 Lakh</option><option>₹20 Lakh</option><option>₹30 Lakh</option><option>₹50 Lakh</option><option>₹1 Crore+</option></select>
+          </div>
+          <div class="ap-pf-sub">Required funding</div>
+        </div>
+        <div class="ap-pf">
+          <div class="ap-pf-label">Destination Country</div>
+          <div class="ap-pf-value">
+            <select><option>🇬🇧 UK</option><option>🇺🇸 USA</option><option>🇨🇦 Canada</option><option>🇦🇺 Australia</option><option>🇩🇪 Germany</option></select>
+          </div>
+          <div class="ap-pf-sub">Study destination</div>
+        </div>
+        <div class="ap-pf">
+          <div class="ap-pf-label">Course Type</div>
+          <div class="ap-pf-value">
+            <select><option>Masters (MS)</option><option>MBA</option><option>Bachelors (UG)</option><option>PhD</option></select>
+          </div>
+          <div class="ap-pf-sub">Degree program</div>
+        </div>
+        <div class="ap-pf">
+          <div class="ap-pf-label">University</div>
+          <div class="ap-pf-value">
+            <input type="text" placeholder="e.g. Oxford, MIT..." />
+          </div>
+          <div class="ap-pf-sub">Institution name</div>
+        </div>
+      </div>
+      <div class="ap-panel-bottom">
+        <div class="ap-panel-note">
+          <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <span>No collateral options · <strong>Response in 48 hrs</strong></span>
+        </div>
+        <button class="ap-panel-cta">
+          Check Eligibility
+          <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- ══ PANEL: Bank Account ══ -->
+    <div class="ap-svc-panel" id="hero-panel-bank">
+      <div class="ap-panel-fields cols-3">
+        <div class="ap-pf">
+          <div class="ap-pf-label">Country</div>
+          <div class="ap-pf-value">
+            <select><option>🇬🇧 United Kingdom</option><option>🇺🇸 United States</option><option>🇨🇦 Canada</option><option>🇦🇺 Australia</option><option>🇩🇪 Germany</option></select>
+          </div>
+          <div class="ap-pf-sub">Where you're studying</div>
+        </div>
+        <div class="ap-pf">
+          <div class="ap-pf-label">Account Type</div>
+          <div class="ap-pf-value">
+            <select><option>Current Account</option><option>Savings Account</option><option>Student Account</option></select>
+          </div>
+          <div class="ap-pf-sub">Type of account</div>
+        </div>
+        <div class="ap-pf">
+          <div class="ap-pf-label">Preferred Bank</div>
+          <div class="ap-pf-value">
+            <select><option>Any Bank</option><option>Barclays</option><option>HSBC</option><option>Lloyds</option><option>Chase</option><option>TD Bank</option></select>
+          </div>
+          <div class="ap-pf-sub">Bank preference</div>
+        </div>
+      </div>
+      <div class="ap-panel-bottom">
+        <div class="ap-panel-note">
+          <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <span>Open before you arrive · <strong>100% online process</strong></span>
+        </div>
+        <button class="ap-panel-cta">
+          Open Account
+          <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- ══ PANEL: Airport Pickup ══ -->
+    <div class="ap-svc-panel" id="hero-panel-pickup">
+      <div class="ap-panel-fields cols-4">
+        <div class="ap-pf">
+          <div class="ap-pf-label">Arrival Airport</div>
+          <div class="ap-pf-value">
+            <select><option>London Heathrow (LHR)</option><option>JFK New York</option><option>Sydney (SYD)</option><option>Toronto (YYZ)</option><option>Frankfurt (FRA)</option></select>
+          </div>
+          <div class="ap-pf-sub">Arriving at</div>
+        </div>
+        <div class="ap-pf">
+          <div class="ap-pf-label">Drop-off City</div>
+          <div class="ap-pf-value">
+            <input type="text" placeholder="e.g. Manchester..." />
+          </div>
+          <div class="ap-pf-sub">Destination city</div>
+        </div>
+        <div class="ap-pf">
+          <div class="ap-pf-label">Arrival Date</div>
+          <div class="ap-pf-value">
+            <input type="date" style="font-size:15px;font-weight:600;" />
+          </div>
+          <div class="ap-pf-sub">Flight date</div>
+        </div>
+        <div class="ap-pf">
+          <div class="ap-pf-label">Passengers</div>
+          <div class="ap-pf-value">
+            <select><option>1 Person</option><option>2 People</option><option>3 People</option></select>
+          </div>
+          <div class="ap-pf-sub">Number of people</div>
+        </div>
+      </div>
+      <div class="ap-panel-bottom">
+        <div class="ap-panel-note">
+          <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <span>Meet & greet service · <strong>24/7 driver support</strong></span>
+        </div>
+        <button class="ap-panel-cta">
+          Book Pickup
+          <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- ══ PANEL: Luggage Shipping ══ -->
+    <div class="ap-svc-panel" id="hero-panel-luggage">
+      <div class="ap-panel-fields cols-4">
+        <div class="ap-pf">
+          <div class="ap-pf-label">Ship From</div>
+          <div class="ap-pf-value">
+            <select><option>🇮🇳 India</option><option>🇬🇧 UK</option><option>🇺🇸 USA</option><option>🇨🇦 Canada</option></select>
+          </div>
+          <div class="ap-pf-sub">Origin country</div>
+        </div>
+        <div class="ap-pf">
+          <div class="ap-pf-label">Ship To</div>
+          <div class="ap-pf-value">
+            <select><option>🇬🇧 UK</option><option>🇺🇸 USA</option><option>🇨🇦 Canada</option><option>🇦🇺 Australia</option><option>🇩🇪 Germany</option></select>
+          </div>
+          <div class="ap-pf-sub">Destination country</div>
+        </div>
+        <div class="ap-pf">
+          <div class="ap-pf-label">Weight</div>
+          <div class="ap-pf-value">
+            <select><option>Up to 10 kg</option><option>10–20 kg</option><option>20–30 kg</option><option>30 kg+</option></select>
+          </div>
+          <div class="ap-pf-sub">Estimated weight</div>
+        </div>
+        <div class="ap-pf">
+          <div class="ap-pf-label">Pickup Date</div>
+          <div class="ap-pf-value">
+            <input type="date" style="font-size:15px;font-weight:600;" />
+          </div>
+          <div class="ap-pf-sub">When to collect</div>
+        </div>
+      </div>
+      <div class="ap-panel-bottom">
+        <div class="ap-panel-note">
+          <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <span>Door-to-door delivery · <strong>Fully tracked</strong></span>
+        </div>
+        <button class="ap-panel-cta">
+          Get Quote
+          <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- ══ PANEL: Courses ══ -->
+    <div class="ap-svc-panel" id="hero-panel-courses">
+      <div class="ap-panel-fields cols-3">
+        <div class="ap-pf">
+          <div class="ap-pf-label">Course Type</div>
+          <div class="ap-pf-value">
+            <select><option>Masters / MS</option><option>MBA</option><option>Bachelors</option><option>Diploma</option><option>Internship</option><option>Certificate</option></select>
+          </div>
+          <div class="ap-pf-sub">Program type</div>
+        </div>
+        <div class="ap-pf">
+          <div class="ap-pf-label">Country</div>
+          <div class="ap-pf-value">
+            <select><option>🇬🇧 UK</option><option>🇺🇸 USA</option><option>🇨🇦 Canada</option><option>🇦🇺 Australia</option><option>🇩🇪 Germany</option><option>🇳🇱 Netherlands</option></select>
+          </div>
+          <div class="ap-pf-sub">Study destination</div>
+        </div>
+        <div class="ap-pf">
+          <div class="ap-pf-label">Field of Study</div>
+          <div class="ap-pf-value">
+            <select><option>Computer Science</option><option>Business & Finance</option><option>Engineering</option><option>Medicine</option><option>Arts & Design</option><option>Law</option></select>
+          </div>
+          <div class="ap-pf-sub">Subject area</div>
+        </div>
+      </div>
+      <div class="ap-panel-bottom">
+        <div class="ap-panel-note">
+          <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <span>500+ partner universities · <strong>Placement support included</strong></span>
+        </div>
+        <button class="ap-panel-cta">
+          Browse Courses
+          <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
+      </div>
+    </div>
+
+
+    <!-- ══ PANEL: Wellness ══ -->
+    <div class="ap-svc-panel" id="hero-panel-wellness">
+      <div class="ap-panel-fields cols-3">
+        <div class="ap-pf">
+          <div class="ap-pf-label">Service Type</div>
+          <div class="ap-pf-value">
+            <select><option>Mental Health Support</option><option>GP / Doctor Visit</option><option>Dental Care</option><option>Physiotherapy</option><option>Nutrition Counselling</option></select>
+          </div>
+          <div class="ap-pf-sub">What do you need?</div>
+        </div>
+        <div class="ap-pf">
+          <div class="ap-pf-label">Country</div>
+          <div class="ap-pf-value">
+            <select><option>🇬🇧 UK</option><option>🇺🇸 USA</option><option>🇨🇦 Canada</option><option>🇦🇺 Australia</option></select>
+          </div>
+          <div class="ap-pf-sub">Your location</div>
+        </div>
+        <div class="ap-pf">
+          <div class="ap-pf-label">Preferred Time</div>
+          <div class="ap-pf-value">
+            <select><option>ASAP (Within 24 hrs)</option><option>This Week</option><option>Next Week</option><option>Flexible</option></select>
+          </div>
+          <div class="ap-pf-sub">Appointment timing</div>
+        </div>
+      </div>
+      <div class="ap-panel-bottom">
+        <div class="ap-panel-note">
+          <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <span>Confidential & student-friendly · <strong>Available 24/7</strong></span>
+        </div>
+        <button class="ap-panel-cta">
+          Book Consultation
+          <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- ══ PANEL: Essentials Kit ══ -->
+    <div class="ap-svc-panel" id="hero-panel-essentials">
+      <div class="ap-panel-fields cols-3">
+        <div class="ap-pf">
+          <div class="ap-pf-label">Kit Type</div>
+          <div class="ap-pf-value">
+            <select><option>Basic Essentials</option><option>Premium Starter Kit</option><option>Tech & Gadgets Kit</option><option>Kitchen Starter Pack</option><option>Full Student Bundle</option></select>
+          </div>
+          <div class="ap-pf-sub">Choose your kit</div>
+        </div>
+        <div class="ap-pf">
+          <div class="ap-pf-label">Deliver To</div>
+          <div class="ap-pf-value">
+            <select><option>🇬🇧 UK</option><option>🇺🇸 USA</option><option>🇨🇦 Canada</option><option>🇦🇺 Australia</option><option>🇩🇪 Germany</option></select>
+          </div>
+          <div class="ap-pf-sub">Delivery country</div>
+        </div>
+        <div class="ap-pf">
+          <div class="ap-pf-label">Delivery Date</div>
+          <div class="ap-pf-value">
+            <input type="date" style="font-size:15px;font-weight:600;" />
+          </div>
+          <div class="ap-pf-sub">Arrive by</div>
+        </div>
+      </div>
+      <div class="ap-panel-bottom">
+        <div class="ap-panel-note">
+          <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <span>Ready on arrival · <strong>Curated for students</strong></span>
+        </div>
+        <button class="ap-panel-cta">
+          Order Kit
+          <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
+      </div>
+    </div>
+
+  </div><!-- /ap-hero-main-card -->
+</section>
+
+<script>
+  function switchHeroTab(id, btn) {
+    document.querySelectorAll('.ap-svc-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.ap-svc-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('hero-panel-' + id).classList.add('active');
+  }
+  function updateHeroForex() {
+    const sel = document.getElementById('hfx-currency');
+    const opt = sel.options[sel.selectedIndex];
+    const rate = parseFloat(opt.getAttribute('data-rate'));
+    const flag = opt.getAttribute('data-flag');
+    const amt = parseFloat(document.getElementById('hfx-amount').value) || 0;
+    const currNames = {USD:'US Dollar',GBP:'British Pound',CAD:'Canadian Dollar',AUD:'Australian Dollar',EUR:'Euro'};
+    document.getElementById('hfx-flag').textContent = flag;
+    document.getElementById('hfx-curr-name').textContent = currNames[opt.value] || opt.value;
+    document.getElementById('hfx-curr-note').textContent = opt.value;
+    document.getElementById('hfx-curr-label').textContent = opt.value;
+    document.getElementById('hfx-rate-note-val').textContent = rate.toFixed(2);
+    document.getElementById('hfx-inr-display').textContent = '₹' + (amt * rate).toLocaleString('en-IN');
+  }
+</script>
+
+
+<!-- ============================================================
+     BEST DEALS
+============================================================ -->
+<section class="ap-best-deals">
+  <h2 class="ap-section-heading">Best Deals</h2>
+  <div class="ap-deals-track-wrap">
+    <div class="ap-deals-track" id="dealsTrack">
+
+      <!-- Trip.com -->
+      <div class="ap-deal-card">
+        <div class="ap-deal-img">
+          <img class="bg" src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=600&q=80" alt="Flight" />
+          <div class="logo-badge">
+            <span style="font-size:22px;font-weight:700;color:#006CE4;font-family:Arial,sans-serif;">Trip.com</span>
+          </div>
+        </div>
+        <div class="ap-deal-body">
+          <p class="ap-deal-title">Up to 30% Student Discounts on Flights</p>
+          <p class="ap-deal-desc">Students in the UK can save up to £20 on flights worldwide with Trip.com! Use code EUFLEG.</p>
+          <button class="ap-deal-btn">Claim Now</button>
+        </div>
+      </div>
+
+      <!-- StuBuddy -->
+      <div class="ap-deal-card">
+        <div class="ap-deal-img">
+          <img class="bg" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80" alt="Student essentials" />
+          <div class="logo-badge">
+            <div style="text-align:center;line-height:1.1;">
+              <span style="font-size:20px;font-weight:700;color:#E8621A;font-family:Arial,sans-serif;">Stu</span><span style="font-size:20px;font-weight:700;color:#E8621A;font-family:Arial,sans-serif;">—</span><br>
+              <span style="font-size:20px;font-weight:700;color:#E8621A;font-family:Arial,sans-serif;">Buddy</span>
+            </div>
+          </div>
+        </div>
+        <div class="ap-deal-body">
+          <p class="ap-deal-title">Student essential kits made just for you</p>
+          <p class="ap-deal-desc">From bedding to cookware, all in one kit. Use code AMBER10 for 10% off today.</p>
+          <button class="ap-deal-btn">Claim Now</button>
+        </div>
+      </div>
+
+      <!-- Roamless -->
+      <div class="ap-deal-card">
+        <div class="ap-deal-img">
+          <img class="bg" src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&q=80" alt="Mobile data" />
+          <div class="logo-badge">
+            <span style="font-size:19px;font-weight:700;color:#1A1A2E;font-family:Arial,sans-serif;letter-spacing:-0.5px;">Roamless</span>
+          </div>
+        </div>
+        <div class="ap-deal-body">
+          <p class="ap-deal-title">Instant Global Data, Save 20% Now</p>
+          <p class="ap-deal-desc">Grab the deal! Shop now at Roamless and enjoy instant global connectivity — get 20% off with AMBER20.</p>
+          <button class="ap-deal-btn">Claim Now</button>
+        </div>
+      </div>
+
+      <!-- Matrix -->
+      <div class="ap-deal-card">
+        <div class="ap-deal-img">
+          <img class="bg" src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=600&q=80" alt="UK SIM" />
+          <div class="logo-badge">
+            <span style="font-size:22px;font-weight:700;color:#0EA5A0;font-family:Arial,sans-serif;">MatriX</span>
+          </div>
+        </div>
+        <div class="ap-deal-body">
+          <p class="ap-deal-title">UK Student SIM with Calls &amp; 20 GB Data</p>
+          <p class="ap-deal-desc">Unlimited UK calls + 20 GB data. Free SIM delivery across India. Use code AMBER10 for 10% off!</p>
+          <button class="ap-deal-btn">Claim Now</button>
+        </div>
+      </div>
+
+      <!-- Niyo -->
+      <div class="ap-deal-card">
+        <div class="ap-deal-img">
+          <img class="bg" src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=600&q=80" alt="Bank account" />
+          <div class="logo-badge">
+            <span style="font-size:22px;font-weight:700;color:#6C3CE1;font-family:Arial,sans-serif;">Niyo</span>
+          </div>
+        </div>
+        <div class="ap-deal-body">
+          <p class="ap-deal-title">Zero Forex Fee Student Bank Account</p>
+          <p class="ap-deal-desc">Open a Niyo Global account and spend abroad with zero forex markup. Get ₹500 cashback with AMBER500.</p>
+          <button class="ap-deal-btn">Claim Now</button>
+        </div>
+      </div>
+
+    </div>
+    <button class="ap-deals-arrow" id="dealsArrowRight" onclick="document.getElementById('dealsTrack').scrollBy({left:328,behavior:'smooth'})">
+      <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 3l5 5-5 5" stroke="#374151" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+  </div>
+</section>
+
+<!-- ============================================================
+     EXPLORE STUDENT BENEFITS
+============================================================ -->
+<section class="ap-explore">
+  <div class="ap-explore-img">
+    <img src="https://www.figma.com/api/mcp/asset/5d626881-5085-49e4-baa1-24e3ed82f8e2" alt="Student benefits" />
+  </div>
+  <div class="ap-explore-text">
+    <h2>Explore Countless Student Benefits</h2>
+    <p>Unlock a world of exclusive student discounts with Amber+ and enjoy amazing deals on food, tech, travel, fashion, and more. With unbeatable exclusive student offers and savings right at your fingertips, Amber Plus is here to make your student life easier and more enjoyable.</p>
+    <p>Explore the Amber+ student deals on various services and start saving on everything that matters to you, from everyday essentials to unique experiences!</p>
+  </div>
+</section>
+
+<!-- ============================================================
+     WHY AMBER+
+============================================================ -->
+<section class="ap-why">
+  <div class="ap-why-header">
+    <h2 class="ap-section-heading">Why amber+?</h2>
+    <p>Amber+ gives you access to exclusive student deals and unbeatable perks all in one place, making your university experience more affordable and enjoyable. Here's how:</p>
+  </div>
+  <div class="ap-why-cards">
+    <div class="ap-why-card">
+      <img class="card-circle" src="https://www.figma.com/api/mcp/asset/dfc388e0-635b-44b6-bdd9-cdaac9099b72" alt="" />
+      <div class="card-icon">
+        <img src="https://www.figma.com/api/mcp/asset/91ed0a84-1f73-4344-837a-46c4624b53ed" alt="" />
+      </div>
+      <div class="ap-why-card-body">
+        <h3>Exclusive Student Offers</h3>
+        <p>Save big on essentials like food, tech, and fashion with our student-only deals.</p>
+      </div>
+    </div>
+    <div class="ap-why-card">
+      <img class="card-circle" src="https://www.figma.com/api/mcp/asset/7b2ada88-7513-4522-a40b-dabc5821929a" alt="" />
+      <div class="card-icon">
+        <img src="https://www.figma.com/api/mcp/asset/5812a1e7-2795-41b9-906a-0a8d0207f6fe" alt="" />
+      </div>
+      <div class="ap-why-card-body">
+        <h3>Big Brand Names</h3>
+        <p>Enjoy discounted and affordable deals on popular big brands only with Amber Plus!</p>
+      </div>
+    </div>
+    <div class="ap-why-card">
+      <img class="card-circle" src="https://www.figma.com/api/mcp/asset/2838ad2e-b3a8-433a-9d13-27d42da2f778" alt="" />
+      <div class="card-icon">
+        <img src="https://www.figma.com/api/mcp/asset/ce38328e-a7bc-496b-b5ff-0a5343e3555d" alt="" />
+      </div>
+      <div class="ap-why-card-body">
+        <h3>Convenient and hassle-free</h3>
+        <p>Access all your favourite student deals, discounts &amp; perks in one easy-to-use platform.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     OUR PARTNERS
+============================================================ -->
+<section class="ap-partners">
+  <div class="ap-partners-top">
+    <div class="ap-partners-header">
+      <h2>Our Partners</h2>
+      <p>Amber+ partners are well-ranked and trusted. You can get worldwide luggage shipping from your doorstep to your study abroad destination, our trusted.</p>
+    </div>
+    <div class="ap-partners-logos">
+      <div class="ap-partner-logo"><img src="https://www.figma.com/api/mcp/asset/cd2c2b25-92ad-497b-b7d6-60c31886ea8c" alt="Partner" /></div>
+      <div class="ap-partner-logo"><img src="https://www.figma.com/api/mcp/asset/b54b7d5b-b04b-40fe-b785-eb3e4d3c5a2a" alt="Partner" /></div>
+      <div class="ap-partner-logo"><img src="https://www.figma.com/api/mcp/asset/5a2f3f7e-784b-4aa5-bd8c-23a04dd76d4f" alt="Partner" /></div>
+      <div class="ap-partner-logo"><img src="https://www.figma.com/api/mcp/asset/d42aa083-8598-40e9-b9dc-9c26361c0432" alt="Partner" /></div>
+      <div class="ap-partner-logo"><img src="https://www.figma.com/api/mcp/asset/a2098f41-accf-450a-a3ae-00a8e1993919" alt="Partner" /></div>
+      <div class="ap-partner-logo"><img src="https://www.figma.com/api/mcp/asset/cd96a092-08a2-4fe4-b932-48c24c74aa8b" alt="QuillBot" /></div>
+      <div class="ap-partner-logo"><img src="https://www.figma.com/api/mcp/asset/ffe7b562-dde3-4757-b1f4-a81d028163ec" alt="Vizard" /></div>
+      <div class="ap-partner-logo"><img src="https://www.figma.com/api/mcp/asset/7045b717-9800-42cd-8ad4-a55163c36a9f" alt="UKO" /></div>
+      <div class="ap-partner-logo"><img src="https://www.figma.com/api/mcp/asset/d1d188e6-f2b0-4fe1-b88c-7664b1898806" alt="Partner" /></div>
+      <div class="ap-partner-logo"><img src="https://www.figma.com/api/mcp/asset/5a679c8a-2e39-41c4-948b-0dcc0e729b88" alt="Anytime Fitness" /></div>
+    </div>
+  </div>
+  <div class="ap-partners-bottom">
+    <div class="ap-partner-banner">
+      <img src="https://www.figma.com/api/mcp/asset/b50136f0-2ad8-4b31-b162-349389a67559" alt="Want to partner with us?" />
+      <div class="ap-partner-cta-wrap">
+        <button class="ap-partner-cta-btn">Partner with us</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FAQs
+============================================================ -->
+<section class="ap-faqs">
+  <div class="ap-faqs-box">
+    <div class="ap-faqs-title">Frequently Asked Questions (FAQs)</div>
+
+    <div class="ap-faq-item open">
+      <button class="ap-faq-btn" onclick="toggleFaq(this)">
+        <span class="ap-faq-q">How do I get exclusive discounts offered by amber plus partners?</span>
+        <span class="ap-faq-icon"><svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 6l5 5 5-5" stroke="#374151" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </button>
+      <div class="ap-faq-answer">
+        <p>To get exclusive student deals, select the service you need, choose a partner, and request a quote through amber plus. The discounts will be applied automatically.</p>
+      </div>
+    </div>
+
+    <div class="ap-faq-item">
+      <button class="ap-faq-btn" onclick="toggleFaq(this)">
+        <span class="ap-faq-q">What additional benefits do I get from amber plus?</span>
+        <span class="ap-faq-icon"><svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 6l5 5 5-5" stroke="#374151" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </button>
+      <div class="ap-faq-answer">
+        <p>Amber+ gives you access to exclusive student deals on food, tech, travel, fashion, and more — all in one convenient platform with unbeatable savings.</p>
+      </div>
+    </div>
+
+    <div class="ap-faq-item">
+      <button class="ap-faq-btn" onclick="toggleFaq(this)">
+        <span class="ap-faq-q">Is there any cost to use amber plus?</span>
+        <span class="ap-faq-icon"><svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 6l5 5 5-5" stroke="#374151" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </button>
+      <div class="ap-faq-answer">
+        <p>Amber+ is completely free to use for students. Simply sign up and start accessing exclusive deals and discounts immediately.</p>
+      </div>
+    </div>
+
+    <div class="ap-faq-item">
+      <button class="ap-faq-btn" onclick="toggleFaq(this)">
+        <span class="ap-faq-q">What should I do if I have issues with a service I booked through amber plus?</span>
+        <span class="ap-faq-icon"><svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 6l5 5 5-5" stroke="#374151" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </button>
+      <div class="ap-faq-answer">
+        <p>If you encounter any issues, contact our support team through the Help Centre or reach out via WhatsApp or email. We're available 24/7 to assist you.</p>
+      </div>
+    </div>
+
+    <div class="ap-faq-item">
+      <button class="ap-faq-btn" onclick="toggleFaq(this)">
+        <span class="ap-faq-q">Are the partners listed on amber plus reliable?</span>
+        <span class="ap-faq-icon"><svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 6l5 5 5-5" stroke="#374151" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </button>
+      <div class="ap-faq-answer">
+        <p>Yes, all partners on Amber+ are carefully vetted and well-ranked. We only work with trusted brands to ensure you get the best deals safely.</p>
+      </div>
+    </div>
+
+    <button class="ap-see-more">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 6l5 5 5-5" stroke="#ED3A56" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      See more (1)
+    </button>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+============================================================ -->
+<footer class="ap-footer">
+  <div class="ap-footer-inner">
+
+    <!-- Brand column -->
+    <div class="ap-footer-brand">
+      <div class="ap-footer-brand-top">
+        <!-- Amber dark logo -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="83" height="20" fill="none" viewBox="0 0 100 24"><path fill="#111928" d="M13.132 6.561h4.202v17.001h-4.202v-1.795q-1.231 1.185-2.468 1.71T7.98 24c-2.161 0-4.035-.851-5.614-2.553Q0 18.892 0 15.094c0-2.533.764-4.775 2.293-6.453Q4.585 6.124 7.86 6.124q1.507 0 2.827.58 1.32.577 2.445 1.735V6.56m-4.419 3.501q-1.95 0-3.238 1.398-1.29 1.399-1.291 3.585c0 1.458.437 2.677 1.311 3.625q1.312 1.422 3.23 1.422c1.279 0 2.415-.465 3.283-1.398q1.306-1.4 1.305-3.664c0-1.509-.434-2.677-1.305-3.594q-1.303-1.377-3.298-1.377zM21.423 6.561h4.201v1.953q1.08-1.203 2.394-1.796a6.9 6.9 0 0 1 2.873-.594c1.038 0 1.992.26 2.834.781q1.262.784 2.034 2.282 1-1.499 2.456-2.282t3.182-.781c1.15 0 2.24.28 3.143.845.904.561 1.553 1.298 1.951 2.203q.592 1.36.592 4.422v9.968h-4.235v-8.625q0-2.893-.708-3.915T40.017 10q-1.078 0-1.933.625t-1.27 1.726-.416 3.54v7.672h-4.234V15.33q0-2.282-.333-3.305-.331-1.022-.994-1.524-.665-.5-1.605-.501-1.052 0-1.907.634-.857.633-1.281 1.775-.425 1.14-.425 3.594v7.563h-4.202V6.561zM55.222 0v8.439c.758-.77 1.582-1.35 2.462-1.736a7 7 0 0 1 2.834-.58q3.28 0 5.573 2.518 2.293 2.515 2.293 6.453c0 2.625-.791 4.647-2.37 6.353S62.56 24 60.393 24a6.9 6.9 0 0 1-2.695-.522c-.833-.347-1.656-.92-2.48-1.711v1.795h-4.172V0h4.175m4.419 10.062q-1.987 0-3.295 1.377-1.307 1.376-1.308 3.594c0 1.48.437 2.732 1.308 3.664q1.308 1.399 3.295 1.398c1.323 0 2.364-.474 3.241-1.422q1.317-1.421 1.318-3.625c0-1.47-.432-2.653-1.294-3.585q-1.293-1.399-3.265-1.398zM88.382 16.298H74.88q.294 1.812 1.561 2.882 1.269 1.07 3.242 1.072 2.355-.001 4.05-1.672l3.541 1.687q-1.323 1.907-3.172 2.819c-1.235.606-2.695.914-4.39.914q-3.941 0-6.42-2.523-2.48-2.522-2.48-6.32c0-2.532.824-4.748 2.471-6.462q2.472-2.571 6.197-2.571 3.956 0 6.436 2.571t2.48 6.788l-.015.812zm-4.202-3.36q-.418-1.42-1.642-2.311-1.226-.891-2.846-.89-1.755-.001-3.083.998-.831.624-1.544 2.204zM91.01 6.561h3.602v2.14q.584-1.267 1.555-1.922a3.7 3.7 0 0 1 2.123-.655q.814 0 1.71.437l-1.308 3.673q-.74-.374-1.217-.374-.968.001-1.638 1.22-.67 1.217-.67 4.78l.016.827v6.875H91.01z"/></svg>
+        <p class="ap-footer-copy">amber © 2024. All rights reserved.</p>
+      </div>
+      <!-- Trustpilot -->
+      <div class="ap-trustpilot-box">
+        <div class="ap-trustpilot-row">
+          <!-- Trustpilot green stars -->
+          <div style="display:flex;align-items:center;gap:3px;">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect width="22" height="22" rx="2" fill="#00B67A"/><path d="M11 4.5l1.76 5.42H18.5l-4.88 3.54 1.86 5.73L11 15.68l-4.48 3.51 1.86-5.73L3.5 9.92h5.74L11 4.5z" fill="#fff"/></svg>
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect width="22" height="22" rx="2" fill="#00B67A"/><path d="M11 4.5l1.76 5.42H18.5l-4.88 3.54 1.86 5.73L11 15.68l-4.48 3.51 1.86-5.73L3.5 9.92h5.74L11 4.5z" fill="#fff"/></svg>
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect width="22" height="22" rx="2" fill="#00B67A"/><path d="M11 4.5l1.76 5.42H18.5l-4.88 3.54 1.86 5.73L11 15.68l-4.48 3.51 1.86-5.73L3.5 9.92h5.74L11 4.5z" fill="#fff"/></svg>
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect width="22" height="22" rx="2" fill="#00B67A"/><path d="M11 4.5l1.76 5.42H18.5l-4.88 3.54 1.86 5.73L11 15.68l-4.48 3.51 1.86-5.73L3.5 9.92h5.74L11 4.5z" fill="#fff"/></svg>
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect width="22" height="22" rx="2" fill="#00B67A"/><path d="M11 4.5v7.34l-3.35 2.44 1.28-3.94L3.5 9.92h5.74L11 4.5z" fill="#fff"/><path d="M11 4.5l1.76 5.42H18.5l-4.88 3.54 1.86 5.73L11 15.68V4.5z" fill="#ddd"/></svg>
+          </div>
+          <div class="ap-trustpilot-divider"></div>
+          <span class="ap-trustpilot-score">4.8/5 on Trustpilot</span>
+        </div>
+        <p class="ap-trustpilot-review">Rated as "Excellent" • <strong>4800+</strong> Reviews by students</p>
+      </div>
+      <!-- App + Payment -->
+      <div class="ap-app-box">
+        <div style="display:flex;flex-direction:column;gap:12px;flex:1;">
+          <span class="ap-app-dl-label">Get the app</span>
+          <div class="ap-app-icons">
+            <!-- Google Play badge -->
+            <a href="#" style="display:flex;align-items:center;gap:6px;background:#111928;border-radius:6px;padding:5px 10px;text-decoration:none;">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 1.5L9.5 8 2 14.5V1.5z" fill="#4FC3F7"/><path d="M2 1.5l10 4.25L9.5 8 2 1.5z" fill="#81C784"/><path d="M2 14.5l10-4.25L9.5 8 2 14.5z" fill="#FF7043"/><path d="M12 5.75L9.5 8l2.5 2.25 1.5-.9V6.65L12 5.75z" fill="#FFCA28"/></svg>
+              <div style="display:flex;flex-direction:column;line-height:1.1;"><span style="font-size:8px;color:#fff;font-family:sans-serif;">GET IT ON</span><span style="font-size:11px;font-weight:600;color:#fff;font-family:sans-serif;">Google Play</span></div>
+            </a>
+            <!-- App Store badge -->
+            <a href="#" style="display:flex;align-items:center;gap:6px;background:#111928;border-radius:6px;padding:5px 10px;text-decoration:none;">
+              <svg width="14" height="16" viewBox="0 0 14 16" fill="none"><path d="M11.5 8.5c0-2.2 1.8-3.3 1.9-3.3C12.3 3.8 11 3 10 3c-1-.1-2 .6-2.5.6s-1.3-.6-2.2-.6C3.8 3 2 4.2 2 6.8c0 1.5.6 3.2 1.3 4.2.7 1 1.3 1.8 2.2 1.8.9 0 1.2-.6 2.3-.6s1.4.6 2.3.6c.9 0 1.6-.9 2.2-1.9.7-1 1-2 1-2-.1 0-1.8-.7-1.8-2.4z" fill="#fff"/><path d="M9.5 1.5C10 .9 10.3 0 10.2 0 9.3.1 8.2.7 7.6 1.3c-.6.6-.9 1.4-.8 2.2.9.1 1.8-.5 2.7-2z" fill="#fff"/></svg>
+              <div style="display:flex;flex-direction:column;line-height:1.1;"><span style="font-size:8px;color:#fff;font-family:sans-serif;">Download on the</span><span style="font-size:11px;font-weight:600;color:#fff;font-family:sans-serif;">App Store</span></div>
+            </a>
+          </div>
+        </div>
+        <div class="ap-payment">
+          <span class="ap-payment-label">Payment options:</span>
+          <div class="ap-payment-icons">
+            <!-- Visa -->
+            <div style="background:#fff;border:1px solid #E5E7EB;border-radius:4px;padding:3px 7px;display:flex;align-items:center;justify-content:center;">
+              <span style="font-size:13px;font-weight:900;color:#1A1F71;font-family:Arial,sans-serif;letter-spacing:1px;">VISA</span>
+            </div>
+            <!-- Mastercard -->
+            <div style="background:#fff;border:1px solid #E5E7EB;border-radius:4px;padding:3px 6px;display:flex;align-items:center;justify-content:center;">
+              <svg width="30" height="18" viewBox="0 0 30 18" fill="none"><circle cx="11" cy="9" r="8" fill="#EB001B"/><circle cx="19" cy="9" r="8" fill="#F79E1B"/><path d="M15 3.28A8 8 0 0 1 18.72 9 8 8 0 0 1 15 14.72 8 8 0 0 1 11.28 9 8 8 0 0 1 15 3.28z" fill="#FF5F00"/></svg>
+            </div>
+            <!-- AmEx -->
+            <div style="background:#2E77BC;border-radius:4px;padding:3px 7px;display:flex;align-items:center;justify-content:center;">
+              <span style="font-size:10px;font-weight:800;color:#fff;font-family:Arial,sans-serif;letter-spacing:0.5px;">AMEX</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Company -->
+    <div class="ap-footer-col">
+      <span class="ap-footer-col-title">Company</span>
+      <div class="ap-footer-links">
+        <div class="ap-footer-link-row"><a href="#">About</a><span class="ap-footer-badge">New</span></div>
+        <div class="ap-footer-link-row"><a href="#">How It Works</a><span class="ap-footer-badge">New</span></div>
+        <div class="ap-footer-link-row"><a href="#">Refer a Friend</a><span class="ap-footer-badge">New</span></div>
+        <div class="ap-footer-link-row"><a href="#">Group Booking</a><span class="ap-footer-badge">New</span></div>
+        <div class="ap-footer-link-row"><a href="#">List with us</a><span class="ap-footer-badge">New</span></div>
+        <div class="ap-footer-link-row"><a href="#">Partner with us</a><span class="ap-footer-badge">New</span></div>
+        <div class="ap-footer-link-row"><a href="#">Careers</a><span class="ap-footer-badge">We are Hiring!</span></div>
+      </div>
+    </div>
+
+    <!-- Discover -->
+    <div class="ap-footer-col">
+      <span class="ap-footer-col-title">Discover</span>
+      <div class="ap-footer-links">
+        <div class="ap-footer-link-row"><a href="#">Blog</a><span class="ap-footer-badge">New</span></div>
+        <div class="ap-footer-link-row"><a href="#">Podcast</a><span class="ap-footer-badge">New</span></div>
+        <div class="ap-footer-link-row"><a href="#">Newsroom</a><span class="ap-footer-badge">New</span></div>
+        <div class="ap-footer-link-row"><a href="#">Amber Plus</a><span class="ap-footer-badge">New</span></div>
+        <div class="ap-footer-link-row"><a href="#">Media Mention</a><span class="ap-footer-badge">New</span></div>
+        <div class="ap-footer-link-row"><a href="#">Ambassador</a><span class="ap-footer-badge">New</span></div>
+        <div class="ap-footer-link-row"><a href="#">Scholarship</a><span class="ap-footer-badge">We are Hiring!</span></div>
+        <div class="ap-footer-link-row"><a href="#">Exams</a><span class="ap-footer-badge">New</span></div>
+      </div>
+    </div>
+
+    <!-- Support -->
+    <div class="ap-footer-col">
+      <span class="ap-footer-col-title">Support</span>
+      <div class="ap-footer-links support">
+        <div class="ap-footer-link-row"><a href="#">Help Centre</a><span class="ap-footer-badge">New</span></div>
+        <div class="ap-footer-link-row"><a href="#">Contact Us</a><span class="ap-footer-badge">New</span></div>
+        <div class="ap-footer-link-row"><a href="#">T&amp;C</a><span class="ap-footer-badge">New</span></div>
+        <div class="ap-footer-link-row"><a href="#">Privacy Policy</a><span class="ap-footer-badge">New</span></div>
+        <div class="ap-footer-link-row"><a href="#">Sitemap</a><span class="ap-footer-badge">New</span></div>
+      </div>
+    </div>
+
+    <!-- Contact us -->
+    <div class="ap-contact-col">
+      <span class="ap-footer-col-title">Contact us</span>
+      <div class="ap-contact-badge">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" style="flex-shrink:0;margin-top:1px;"><path d="M6.5 3C5.1 3 4 4.1 4 5.5c0 6.35 5.15 11.5 11.5 11.5 1.4 0 2.5-1.1 2.5-2.5v-1.6c0-.55-.3-1.05-.78-1.3l-2.44-1.22c-.5-.25-1.1-.14-1.5.27l-.8.8c-.2.2-.5.25-.75.12C10.3 10.5 9.5 9.7 8.43 8.27c-.13-.25-.08-.55.12-.75l.8-.8c.4-.4.52-1 .27-1.5L8.4 2.78C8.15 2.3 7.65 2 7.1 2H6.5z" stroke="#6B7280" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <span>+44 7400314942</span>
+      </div>
+      <div class="ap-contact-badge">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" style="flex-shrink:0;margin-top:1px;"><rect x="3" y="5" width="14" height="11" rx="2" stroke="#6B7280" stroke-width="1.5"/><path d="M3 7l7 5 7-5" stroke="#6B7280" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <span>contact@amberstudent.com</span>
+      </div>
+      <div class="ap-contact-badge">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" style="flex-shrink:0;margin-top:1px;"><path d="M10 2C5.58 2 2 5.36 2 9.5c0 1.57.5 3.03 1.35 4.23L2 18l4.4-1.4A8.24 8.24 0 0 0 10 17c4.42 0 8-3.36 8-7.5S14.42 2 10 2z" stroke="#6B7280" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M7.5 8.5c0-.28.22-.5.5-.5h.01c.28 0 .49.22.49.5v.01a.5.5 0 0 1-.5.5h-.01a.5.5 0 0 1-.49-.5V8.5zM9.5 9c.3.6.9 1.2 1.5 1.5M11 9.5a.5.5 0 0 0 .5.5h.01a.5.5 0 0 0 .49-.5V9.49a.5.5 0 0 0-.5-.49h-.01a.5.5 0 0 0-.49.5V9.5z" stroke="#6B7280" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <span>Whatsapp</span>
+      </div>
+      <div class="ap-contact-badge">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" style="flex-shrink:0;margin-top:1px;"><path d="M10 2C7.24 2 5 4.24 5 7c0 3.75 5 11 5 11s5-7.25 5-11c0-2.76-2.24-5-5-5zm0 6.5A1.5 1.5 0 1 1 10 5a1.5 1.5 0 0 1 0 3z" stroke="#6B7280" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>40 E Main St #1215 Newark 19711-4639</span>
+      </div>
+      <div class="ap-follow">
+        <span class="ap-follow-label">Follow us on:</span>
+        <div class="ap-social-icons">
+          <!-- LinkedIn -->
+          <a href="#" style="display:flex;align-items:center;justify-content:center;width:28px;height:28px;background:#0A66C2;border-radius:6px;">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6H2v8h2V6zM3 5a1 1 0 1 0 0-2 1 1 0 0 0 0 2zM14 14h-2v-3.5c0-1-.8-1.5-1.5-1.5S9 9.5 9 10.5V14H7V6h2v1c.5-.8 1.5-1.2 2.5-1.2C13.1 5.8 14 6.9 14 9.5V14z" fill="#fff"/></svg>
+          </a>
+          <!-- Instagram -->
+          <a href="#" style="display:flex;align-items:center;justify-content:center;width:28px;height:28px;background:radial-gradient(circle at 30% 107%, #fdf497 0%, #fd5949 45%, #d6249f 60%, #285AEB 90%);border-radius:6px;">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="3" y="3" width="10" height="10" rx="3" stroke="#fff" stroke-width="1.5"/><circle cx="8" cy="8" r="2.5" stroke="#fff" stroke-width="1.5"/><circle cx="11.5" cy="4.5" r="0.75" fill="#fff"/></svg>
+          </a>
+          <!-- YouTube -->
+          <a href="#" style="display:flex;align-items:center;justify-content:center;width:28px;height:28px;background:#FF0000;border-radius:6px;">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6.5 5.5l4 2.5-4 2.5V5.5z" fill="#fff"/></svg>
+          </a>
+          <!-- X / Twitter -->
+          <a href="#" style="display:flex;align-items:center;justify-content:center;width:28px;height:28px;background:#000;border-radius:6px;">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 1l5 5.5M1 1h3l9 12h-3M13 1L8 6.5M10 1h3M1 13h3" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </a>
+          <!-- Facebook -->
+          <a href="#" style="display:flex;align-items:center;justify-content:center;width:28px;height:28px;background:#1877F2;border-radius:6px;">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M9 14V9h2l.5-2H9V5.5c0-.55.45-1 1-1H12V3h-2A2.5 2.5 0 0 0 7.5 5.5V7H6v2h1.5v5H9z" fill="#fff"/></svg>
+          </a>
+          <!-- Pinterest -->
+          <a href="#" style="display:flex;align-items:center;justify-content:center;width:28px;height:28px;background:#E60023;border-radius:6px;">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2C4.69 2 2 4.69 2 8c0 2.53 1.52 4.7 3.72 5.66-.05-.44-.1-1.12.02-1.6l.73-3.1s-.19-.37-.19-.92c0-.86.5-1.51 1.12-1.51.53 0 .79.4.79.87 0 .53-.34 1.33-.51 2.07-.15.62.3 1.12.9 1.12 1.07 0 1.8-1.13 1.8-2.76 0-1.44-.99-2.45-2.4-2.45-1.63 0-2.59 1.22-2.59 2.49 0 .49.19.92.42 1.18.04.06.05.11.04.17l-.16.63c-.02.1-.08.12-.19.07-.73-.34-1.18-1.4-1.18-2.25 0-1.83 1.33-3.5 3.83-3.5 2.01 0 3.57 1.43 3.57 3.34 0 1.99-1.26 3.6-3 3.6-.59 0-1.14-.31-1.33-.67l-.36 1.35c-.13.5-.48 1.13-.72 1.51.54.17 1.12.26 1.72.26 3.31 0 6-2.69 6-6S11.31 2 8 2z" fill="#fff"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</footer>
+
+<script>
+  function toggleFaq(btn) {
+    var item = btn.closest('.ap-faq-item');
+    var isOpen = item.classList.contains('open');
+    document.querySelectorAll('.ap-faq-item').forEach(function(i) { i.classList.remove('open'); });
+    if (!isOpen) item.classList.add('open');
+  }
+</script>
+</body>
+</html>
