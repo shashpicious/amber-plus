@@ -1,0 +1,1942 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1440" />
+  <title>Amber — Home Away From Home</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://api.fontshare.com" />
+  <link href="https://api.fontshare.com/v2/css?f[]=open-sauce-one@400,500,600,700,800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Open Sauce One', sans-serif;
+      min-width: 1440px;
+      background: #fff;
+      overflow-x: hidden;
+    }
+
+    /* ── Utility ── */
+    .px-80  { padding-left: 80px; padding-right: 80px; }
+    .py-48  { padding-top: 48px; padding-bottom: 48px; }
+    .pb-48  { padding-bottom: 48px; }
+    .pt-48  { padding-top: 48px; }
+    .bg-gray { background: #F9FAFB; }
+    .bg-white { background: #ffffff; }
+    .text-900  { color: #111928; }
+    .text-700  { color: #374151; }
+    .text-600  { color: #4B5563; }
+    .text-500  { color: #6B7280; }
+    .text-red   { color: #ED3A56; }
+    .section-header { padding-top: 48px; padding-bottom: 32px; }
+    .section-header h2 { font-size: 24px; font-weight: 700; color: #111928; line-height: 1.25; letter-spacing: 0.036px; text-transform: capitalize; }
+    .section-header p  { font-size: 16px; font-weight: 400; color: #4B5563; line-height: 1.5; margin-top: 8px; }
+
+    /* ──────────────────────────────────────────
+       1. NAVBAR + HERO
+    ────────────────────────────────────────── */
+    .hero-section {
+      position: relative;
+      width: 1440px;
+      height: 450px;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: rgba(0,0,0,0.25);
+    }
+
+    /* Navbar */
+    .navbar {
+      position: absolute; top: 0; left: 0; right: 0;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 40px;
+      z-index: 10;
+    }
+    .navbar-logo {
+      height: 24px; width: 100px;
+      display: flex; align-items: center;
+    }
+    .navbar-actions { display: flex; align-items: center; gap: 8px; }
+    .nav-btn {
+      display: flex; align-items: center; gap: 6px;
+      padding: 8px 12px;
+      border: none; background: transparent; cursor: pointer;
+      font-size: 14px; font-weight: 600; color: #fff;
+      border-radius: 8px;
+    }
+    .nav-btn-outline {
+      border: 1px solid #E5E7EB;
+    }
+    .nav-btn img { width: 16px; height: 16px; filter: brightness(0) invert(1); }
+
+    /* Hero content */
+    .hero-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) translateY(-9px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 32px;
+      width: 800px;
+    }
+    .hero-text { display: flex; flex-direction: column; align-items: center; gap: 16px; }
+    .hero-title {
+      font-size: 56px; font-weight: 700; color: #fff;
+      line-height: 1.15; letter-spacing: 0; text-align: center;
+    }
+    .hero-subtitle {
+      font-size: 18px; font-weight: 400; color: #fff;
+      line-height: 1.5; letter-spacing: 0.09px; text-align: center;
+    }
+    .hero-badges {
+      display: flex; gap: 16px; align-items: center;
+    }
+    .hero-badge {
+      display: flex; align-items: center; gap: 8px;
+      padding: 8px; border-radius: 8px;
+      background: rgba(0,0,0,0.1);
+      backdrop-filter: blur(4px);
+      font-size: 16px; color: #fff; font-weight: 400; letter-spacing: 0.08px;
+      white-space: nowrap;
+    }
+    .hero-badge img { width: 24px; height: 24px; }
+
+    /* Search bar */
+    .search-bar {
+      width: 800px;
+      background: #fff;
+      border: 1px solid #fff;
+      border-radius: 999px;
+      height: 76px;
+      display: flex; align-items: center;
+      justify-content: space-between;
+      padding: 8px 8px 8px 28px;
+      box-shadow: 0 10px 15px rgba(0,0,0,0.1), 0 4px 6px rgba(0,0,0,0.05);
+    }
+    .search-input-text {
+      font-size: 18px; color: #4B5563; display: flex; gap: 6px; align-items: center;
+    }
+    .search-input-text span.muted { color: #4B5563; font-weight: 400; }
+    .search-input-text span.placeholder { color: #4B5563; font-weight: 500; }
+    .search-btn {
+      width: 60px; height: 60px;
+      background: #ED3A56; border-radius: 999px;
+      display: flex; align-items: center; justify-content: center;
+      border: none; cursor: pointer; flex-shrink: 0;
+    }
+    .search-btn img { width: 28px; height: 28px; }
+
+    /* ──────────────────────────────────────────
+       2. STATS BAR
+    ────────────────────────────────────────── */
+    .stats-bar {
+      background: #fff;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 48px 80px;
+      position: relative; overflow: hidden;
+    }
+    .stat-item { display: flex; flex-direction: column; gap: 16px; }
+    .stat-title { font-size: 20px; font-weight: 700; color: #374151; line-height: 1.25; letter-spacing: 0.03px; white-space: nowrap; }
+    .stat-desc  { font-size: 14px; font-weight: 400; color: #6B7280; line-height: 1.5; letter-spacing: 0.035px; width: 230px; margin-top: 8px; }
+    .trustpilot-img { height: 100px; width: 198px; object-fit: contain; flex-shrink: 0; }
+
+    /* ──────────────────────────────────────────
+       3. POPULAR CITIES
+    ────────────────────────────────────────── */
+    .cities-section { background: #F9FAFB; padding: 0 80px 48px; }
+    .country-tabs { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+    .tab-pill {
+      display: flex; align-items: center; gap: 8px;
+      padding: 11px 16px; border-radius: 20px; cursor: pointer;
+      font-size: 14px; font-weight: 400; color: #374151;
+      background: #fff; border: 1px solid #E5E7EB;
+    }
+    .tab-pill.active {
+      background: #FFF3F9; border-color: #ED3A56; color: #ED3A56; font-weight: 600;
+    }
+    .tab-pill img { width: 16px; height: 16px; border-radius: 50%; }
+    .city-grid { display: flex; flex-direction: column; gap: 24px; margin-top: 24px; }
+    .city-row  { display: flex; gap: 24px; }
+    .city-card {
+      width: 200px; height: 200px; border-radius: 8px;
+      overflow: hidden; position: relative; flex-shrink: 0;
+    }
+    .city-card img.city-img {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+    .city-gradient {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      height: 100px;
+      background: linear-gradient(to bottom, rgba(0,0,0,0), #000);
+      overflow: hidden;
+    }
+    .city-name {
+      position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%) translateY(50%);
+      font-size: 16px; font-weight: 600; color: #fff; text-align: center; white-space: nowrap;
+    }
+
+    /* ──────────────────────────────────────────
+       4. PROPERTIES SECTION
+    ────────────────────────────────────────── */
+    .properties-section { background: #fff; padding: 0 80px 48px 80px; position: relative; overflow: hidden; }
+    .city-tabs { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 23px; }
+    .prop-cards-rail {
+      display: flex; gap: 16px; overflow-x: auto; padding-bottom: 8px;
+      scrollbar-width: none;
+    }
+    .prop-cards-rail::-webkit-scrollbar { display: none; }
+    .property-card {
+      flex-shrink: 0; width: 240px;
+      border: 1px solid #E5E7EB; border-radius: 8px; overflow: hidden;
+    }
+    .prop-img-wrap {
+      position: relative; width: 240px; height: 160px; overflow: hidden;
+    }
+    .prop-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+    .prop-badge {
+      position: absolute; top: 12px; left: 12px;
+      background: linear-gradient(-81deg, #E3F1FE 1.5%, #F4F9FF 55%);
+      border-radius: 22px; padding: 3px 8px;
+      font-size: 12px; font-weight: 600; color: #1C64F2;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    .prop-heart {
+      position: absolute; top: 12px; right: 12px;
+      width: 32px; height: 32px; border-radius: 50%;
+      background: #fff; border: 1px solid #E5E7EB;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+    }
+    .prop-heart svg { width: 14px; height: 14px; }
+    .prop-dots {
+      position: absolute; bottom: 12px; left: 12px;
+      display: flex; gap: 6px; align-items: center;
+    }
+    .prop-dot { width: 14px; height: 6px; border-radius: 4px; background: #fff; }
+    .prop-dot.inactive { width: 6px; background: #D1D5DB; }
+    .prop-info { background: #fff; padding: 12px; }
+    .prop-name { font-size: 14px; font-weight: 600; color: #111928; line-height: 1.5; margin-bottom: 4px; }
+    .prop-loc  { font-size: 12px; color: #6B7280; line-height: 1.5; margin-bottom: 8px; }
+    .prop-bottom { display: flex; align-items: center; justify-content: space-between; }
+    .prop-price { display: flex; align-items: baseline; gap: 2px; }
+    .prop-price .from { font-size: 12px; color: #111928; }
+    .prop-price .amount { font-size: 18px; font-weight: 700; color: #111928; }
+    .prop-price .unit { font-size: 12px; color: #111928; }
+    .prop-rating { display: flex; align-items: center; gap: 2px; font-size: 12px; color: #111928; }
+    .prop-rating .star { color: #F4A000; font-size: 13px; }
+    .scroll-btn {
+      position: absolute; right: 40px; top: 50%;
+      transform: translateY(-50%);
+      width: 32px; height: 32px; border-radius: 50%;
+      background: #fff; border: 1px solid #E5E7EB;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    }
+
+    /* ──────────────────────────────────────────
+       5. TESTIMONIALS
+    ────────────────────────────────────────── */
+    .testimonials-section {
+      background: linear-gradient(154deg, #BCF0DA 21%, #E9F9F2 53%, #BCF0DA 89%);
+      padding: 48px 80px;
+      display: flex; flex-direction: column; gap: 32px; align-items: center;
+    }
+    .testi-header {
+      width: 100%; display: flex; align-items: center; justify-content: space-between;
+    }
+    .testi-title { font-size: 24px; font-weight: 700; color: #111928; line-height: 1.25; }
+    .testi-tp img { height: 30px; object-fit: contain; }
+    .testi-cards { display: flex; gap: 16px; width: 1280px; overflow: hidden; position: relative; }
+    .testi-card {
+      flex-shrink: 0; width: 320px; height: 180px;
+      background: #fff; border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(18,201,107,0.1);
+      padding: 16px;
+      display: flex; flex-direction: column; justify-content: space-between;
+    }
+    .testi-text { font-size: 14px; color: #111928; line-height: 1.5; }
+    .testi-reviewer { display: flex; align-items: center; gap: 8px; }
+    .testi-flag { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; }
+    .testi-name { font-size: 14px; font-weight: 600; color: #4B5563; }
+    .testi-uni  { font-size: 12px; color: #4B5563; }
+
+    /* ──────────────────────────────────────────
+       7. BOOK PERFECT ACCOMMODATION
+    ────────────────────────────────────────── */
+    .booking-section { background: #fff; padding: 0 80px 48px; }
+    .booking-features { display: flex; align-items: flex-start; justify-content: space-between; width: 1280px; }
+    .feat-item { display: flex; flex-direction: column; gap: 16px; width: 232px; }
+    .feat-icon { width: 40px; height: 40px; object-fit: contain; }
+    .feat-title { font-size: 20px; font-weight: 700; color: #374151; line-height: 1.25; }
+    .feat-desc  { font-size: 14px; color: #6B7280; line-height: 1.5; }
+    .feat-link  { font-size: 14px; font-weight: 600; color: #111928; text-decoration: none; }
+
+    /* ──────────────────────────────────────────
+       8. REFERRALS & OFFERS
+    ────────────────────────────────────────── */
+    .referrals-section { background: #F9FAFB; padding: 0 80px 48px; position: relative; overflow: hidden; }
+    .offer-cards { display: flex; gap: 16px; overflow: hidden; position: relative; }
+    .offer-card {
+      flex-shrink: 0; width: 500px; height: 200px;
+      border-radius: 8px; overflow: hidden; position: relative;
+      display: flex; flex-direction: column; justify-content: space-between;
+      padding: 16px;
+    }
+    .offer-card img.offer-bg {
+      position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+    }
+    .offer-card-content { position: relative; z-index: 1; }
+    .offer-title { font-size: 20px; font-weight: 700; color: #111928; line-height: 1.25; margin-bottom: 8px; }
+    .offer-desc  { font-size: 14px; color: #111928; line-height: 1.5; width: 269px; }
+    .offer-btn {
+      position: relative; z-index: 1; align-self: flex-start;
+      padding: 11px 16px; border-radius: 8px; border: none; cursor: pointer;
+      font-size: 14px; font-weight: 600; color: #fff;
+      background: linear-gradient(103deg, #E53863 10%, #FF5771 49%, #E53863 106%);
+    }
+
+    /* ──────────────────────────────────────────
+       9. 3 EASY STEPS
+    ────────────────────────────────────────── */
+    .steps-section { background: #fff; padding: 0 80px 64px; }
+    .steps-row {
+      display: flex; align-items: center; justify-content: center; gap: 0;
+    }
+    .step-card {
+      width: 380px; min-height: 180px;
+      background: #fff; border: 1.5px solid #E5E7EB; border-radius: 16px;
+      position: relative; padding: 28px 28px 28px 52px; flex-shrink: 0;
+    }
+    .step-inner {
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .step-num-wrap {
+      position: absolute; left: -22px; top: 50%; transform: translateY(-50%);
+      width: 44px; height: 44px; border-radius: 50%;
+      background: #FDC8D3;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; font-weight: 700; color: #374151;
+      z-index: 1;
+    }
+    .step-icon { width: 48px; height: 48px; object-fit: contain; }
+    .step-title { font-size: 17px; font-weight: 700; color: #111928; line-height: 1.3; }
+    .step-desc  { font-size: 14px; color: #6B7280; line-height: 1.5; max-width: 260px; }
+    .step-arrow {
+      width: 72px; flex-shrink: 0; height: 0;
+      border-top: 2px dashed #D1D5DB;
+    }
+
+    /* ──────────────────────────────────────────
+       10. BEST PARTNERS
+    ────────────────────────────────────────── */
+    .partners-section { background: #F9FAFB; padding: 48px 0 64px; }
+    .partners-section .section-header { padding: 0 80px; }
+    .partners-marquee-wrap {
+      overflow: hidden; position: relative; margin-top: 40px;
+    }
+    .partners-marquee-wrap::before,
+    .partners-marquee-wrap::after {
+      content: ''; position: absolute; top: 0; bottom: 0; width: 120px; z-index: 2; pointer-events: none;
+    }
+    .partners-marquee-wrap::before { left: 0; background: linear-gradient(to right, #F9FAFB, transparent); }
+    .partners-marquee-wrap::after  { right: 0; background: linear-gradient(to left, #F9FAFB, transparent); }
+    .partners-logos {
+      display: flex; align-items: center; gap: 64px;
+      width: max-content;
+      animation: marquee-scroll 30s linear infinite;
+    }
+    .partners-logos:hover { animation-play-state: paused; }
+    @keyframes marquee-scroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+    .partner-logo { height: 48px; display: flex; align-items: center; flex-shrink: 0; }
+    .partner-logo img { max-height: 48px; max-width: 160px; object-fit: contain; }
+
+    /* ──────────────────────────────────────────
+       11. PARTNER + LIST
+    ────────────────────────────────────────── */
+    .partner-list-section { background: #fff; padding: 48px 80px; }
+    .partner-cards { display: flex; gap: 40px; justify-content: center; }
+    .partner-card {
+      width: 620px; height: 210px;
+      border-radius: 8px; overflow: hidden; position: relative;
+    }
+    .partner-card img.partner-bg {
+      position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+    }
+    .partner-card-content { position: relative; z-index: 1; padding: 24px; height: 100%; display: flex; flex-direction: column; justify-content: space-between; }
+    .partner-card-title { font-size: 24px; font-weight: 700; color: #111928; line-height: 1.25; }
+    .partner-card-desc  { font-size: 18px; color: #4B5563; line-height: 1.5; width: 354px; margin-top: 8px; }
+    .partner-card-btn {
+      align-self: flex-start;
+      padding: 11px 16px; border-radius: 8px;
+      background: #fff; border: 1px solid #E5E7EB; cursor: pointer;
+      font-size: 14px; font-weight: 600; color: #111928;
+    }
+
+    /* ──────────────────────────────────────────
+       12. FEATURED IN
+    ────────────────────────────────────────── */
+    .featured-in { background: #F9FAFB; padding: 0 80px 48px; }
+    .featured-logos {
+      display: flex; gap: 32px; align-items: center; flex-wrap: wrap;
+    }
+    .feat-logo { height: 40px; display: flex; align-items: center; }
+    .feat-logo img { max-height: 24px; max-width: 220px; object-fit: contain; }
+
+    /* ──────────────────────────────────────────
+       13. SEO LINKS
+    ────────────────────────────────────────── */
+    .seo-section { background: #fff; padding: 0 80px 48px; }
+    .seo-links {
+      display: flex; flex-wrap: wrap; gap: 16px;
+    }
+    .seo-link {
+      font-size: 12px; color: #4B5563; text-decoration: underline; cursor: pointer;
+      text-decoration-color: #4B5563;
+    }
+
+    /* ──────────────────────────────────────────
+       14. NEED HELP
+    ────────────────────────────────────────── */
+    .help-section {
+      background: #F9FAFB;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 48px 80px;
+    }
+    .help-section h2 { font-size: 24px; font-weight: 700; color: #111928; margin-bottom: 8px; }
+    .help-section p  { font-size: 16px; color: #4B5563; }
+    .help-cards { display: flex; gap: 24px; align-items: flex-start; }
+    .help-card-wrap { display: flex; flex-direction: column; align-items: center; position: relative; }
+    .help-card {
+      width: 165px;
+      background: #fff; border-radius: 12px; padding: 24px;
+      display: flex; flex-direction: column; align-items: center; gap: 12px;
+      cursor: pointer;
+    }
+    .help-card.red-border   { border: 1px solid #FDC8D3; }
+    .help-card.green-border { border: 1px solid #BCF0DA; }
+    .help-card.gray-border  { border: 1px solid #E5E7EB; }
+    .help-card img { width: 36px; height: 36px; object-fit: contain; }
+    .help-card span { font-size: 14px; color: #4B5563; text-align: center; }
+    .help-badge {
+      position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+      padding: 4px 8px; border-radius: 4px;
+      display: flex; align-items: center; gap: 6px;
+      font-size: 12px; font-weight: 600; color: #fff; white-space: nowrap;
+    }
+    .help-badge.red   { background: #ED3A56; }
+    .help-badge.green { background: #31C48D; }
+    .help-badge-dot { width: 7px; height: 7px; border-radius: 50%; background: #fff; }
+
+    /* ──────────────────────────────────────────
+       SERVICES SECTION
+    ────────────────────────────────────────── */
+    .services-section {
+      background: #F9FAFB;
+      padding: 0 80px 56px;
+    }
+    .services-card {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+      overflow: hidden;
+    }
+
+    /* Tab navigation */
+    .services-tabs {
+      display: flex;
+      align-items: stretch;
+      border-bottom: 1px solid #F3F4F6;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .services-tabs::-webkit-scrollbar { display: none; }
+    .svc-tab {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      padding: 20px 28px 16px;
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: color 0.2s;
+    }
+    .svc-tab-icon {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .svc-tab-icon svg {
+      width: 32px;
+      height: 32px;
+      stroke: #9CA3AF;
+      fill: none;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: stroke 0.2s;
+    }
+    .svc-tab-label {
+      font-size: 13px;
+      font-weight: 500;
+      color: #6B7280;
+      transition: color 0.2s;
+    }
+    .svc-tab-underline {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 3px;
+      background: #ED3A56;
+      border-radius: 3px 3px 0 0;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .svc-tab.active .svc-tab-icon svg { stroke: #ED3A56; }
+    .svc-tab.active .svc-tab-label { color: #ED3A56; font-weight: 600; }
+    .svc-tab.active .svc-tab-underline { opacity: 1; }
+    .svc-tab:hover:not(.active) .svc-tab-label { color: #374151; }
+    .svc-tab:hover:not(.active) .svc-tab-icon svg { stroke: #374151; }
+
+    /* "New" badge on tab */
+    .svc-new-badge {
+      position: absolute;
+      top: 12px;
+      right: 10px;
+      background: linear-gradient(103deg, #E53863 10%, #FF5771 49%, #E53863 106%);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      padding: 2px 7px;
+      border-radius: 20px;
+      line-height: 1.4;
+    }
+
+    /* Service panels */
+    .svc-panel { display: none; padding: 32px 40px 36px; }
+    .svc-panel.active { display: block; }
+
+    /* ── Forex Panel ── */
+    .forex-sub-tabs {
+      display: flex;
+      gap: 0;
+      background: #F3F4F6;
+      border-radius: 40px;
+      padding: 4px;
+      width: fit-content;
+      margin-bottom: 28px;
+    }
+    .forex-sub-tab {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 28px;
+      border-radius: 40px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #9CA3AF;
+      cursor: pointer;
+      border: 2px solid transparent;
+      background: transparent;
+      transition: all 0.2s;
+      min-width: 140px;
+      justify-content: center;
+    }
+    .forex-sub-tab svg {
+      width: 18px; height: 18px;
+      stroke: currentColor; fill: none;
+      stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;
+    }
+    .forex-sub-tab.active {
+      background: #fff;
+      color: #1E3A5F;
+      font-weight: 700;
+      border-color: #E5E7EB;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+    }
+    .forex-rate-bar {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: #FFF3F9;
+      border: 1px solid #FDC8D3;
+      border-radius: 10px;
+      padding: 12px 20px;
+      margin-bottom: 24px;
+      width: fit-content;
+    }
+    .forex-rate-guarantee {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #ED3A56;
+    }
+    .forex-rate-guarantee svg {
+      width: 16px; height: 16px;
+      fill: #ED3A56; stroke: none;
+    }
+    .forex-rate-value {
+      font-size: 15px;
+      font-weight: 700;
+      color: #111928;
+    }
+    .forex-rate-value span { color: #059669; }
+    .forex-fields {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      gap: 0;
+      border: 1px solid #E5E7EB;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+    .forex-field {
+      padding: 16px 20px;
+      border-right: 1px solid #E5E7EB;
+      cursor: pointer;
+    }
+    .forex-field:last-child { border-right: none; }
+    .forex-field-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: #9CA3AF;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .forex-field-value {
+      font-size: 20px;
+      font-weight: 700;
+      color: #111928;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .forex-field-sub {
+      font-size: 12px;
+      color: #9CA3AF;
+      margin-top: 4px;
+    }
+    .forex-field-value select,
+    .forex-field-value input {
+      border: none;
+      outline: none;
+      font-size: 20px;
+      font-weight: 700;
+      color: #111928;
+      background: transparent;
+      width: 100%;
+      font-family: inherit;
+    }
+    .forex-field-value input::placeholder { color: #D1D5DB; }
+    .forex-field-value select { cursor: pointer; }
+    .flag-emoji { font-size: 22px; }
+    .forex-cashback-note {
+      font-size: 13px;
+      color: #6B7280;
+      margin-bottom: 24px;
+    }
+    .forex-cashback-note strong { color: #059669; }
+    .forex-delivery-note {
+      font-size: 13px;
+      color: #374151;
+      margin-bottom: 24px;
+    }
+    .forex-delivery-note strong { color: #111928; }
+    .forex-inr-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      background: #F9FAFB;
+      border-radius: 10px;
+      margin-bottom: 24px;
+    }
+    .forex-inr-label { font-size: 14px; color: #6B7280; font-weight: 500; }
+    .forex-inr-value { font-size: 22px; font-weight: 700; color: #111928; }
+    .forex-rate-note {
+      font-size: 12px;
+      color: #6B7280;
+      text-align: center;
+      margin-bottom: 4px;
+    }
+    .forex-rate-note span { color: #059669; font-weight: 600; }
+
+    /* ── Generic Panel Styles ── */
+    .panel-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #111928;
+      margin-bottom: 6px;
+    }
+    .panel-subtitle {
+      font-size: 14px;
+      color: #6B7280;
+      margin-bottom: 28px;
+    }
+    .panel-fields {
+      display: grid;
+      gap: 0;
+      border: 1px solid #E5E7EB;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+    .panel-fields-row {
+      display: grid;
+      gap: 0;
+    }
+    .panel-fields-row.cols-2 { grid-template-columns: 1fr 1fr; }
+    .panel-fields-row.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+    .panel-fields-row.cols-4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+    .panel-field {
+      padding: 16px 20px;
+      border-right: 1px solid #E5E7EB;
+      border-bottom: 1px solid #E5E7EB;
+    }
+    .panel-field:last-child { border-right: none; }
+    .panel-fields-row:last-child .panel-field { border-bottom: none; }
+    .panel-field-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: #9CA3AF;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .panel-field-input {
+      font-size: 16px;
+      font-weight: 600;
+      color: #111928;
+      width: 100%;
+      border: none;
+      outline: none;
+      background: transparent;
+      font-family: inherit;
+    }
+    .panel-field-input::placeholder { color: #D1D5DB; font-weight: 400; }
+    .panel-field-select {
+      font-size: 16px;
+      font-weight: 600;
+      color: #111928;
+      width: 100%;
+      border: none;
+      outline: none;
+      background: transparent;
+      font-family: inherit;
+      cursor: pointer;
+    }
+
+    /* CTA buttons */
+    .svc-cta-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      max-width: 480px;
+      padding: 16px 32px;
+      background: #E8526A;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 600;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      letter-spacing: 0.3px;
+      transition: background 0.15s, transform 0.15s;
+      box-shadow: none;
+    }
+    .svc-cta-btn:hover {
+      background: #D94460;
+      transform: translateY(-1px);
+    }
+    .svc-cta-btn svg {
+      width: 18px; height: 18px;
+      stroke: #fff; fill: none;
+      stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round;
+    }
+
+    /* Essentials Kit panel */
+    .essentials-hero {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      margin-bottom: 28px;
+    }
+    .essentials-badge-new {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: linear-gradient(103deg, #E53863 10%, #FF5771 49%, #E53863 106%);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 12px;
+    }
+    .essentials-features {
+      display: flex;
+      gap: 24px;
+      margin-bottom: 28px;
+    }
+    .essentials-feature {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #F9FAFB;
+      border: 1px solid #E5E7EB;
+      border-radius: 10px;
+      padding: 14px 18px;
+      flex: 1;
+    }
+    .essentials-feature svg {
+      width: 20px; height: 20px;
+      stroke: #ED3A56; fill: none;
+      stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+      flex-shrink: 0;
+    }
+    .essentials-feature-text { font-size: 13px; font-weight: 600; color: #374151; }
+
+    /* ── Kit Selector ── */
+    .kit-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+    .kit-card {
+      border: 2px solid #E5E7EB;
+      border-radius: 16px;
+      padding: 18px 16px 16px;
+      cursor: pointer;
+      transition: border-color .18s, box-shadow .18s, transform .12s;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      position: relative;
+    }
+    .kit-card:hover { border-color: #F9A8B5; box-shadow: 0 4px 16px rgba(237,58,86,.1); transform: translateY(-2px); }
+    .kit-card.selected { border-color: #ED3A56; box-shadow: 0 0 0 3px rgba(237,58,86,.12); }
+    .kit-card-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 4px; }
+    .kit-icon-wrap {
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      background: #FFF1F4;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .kit-icon-wrap svg { width: 22px; height: 22px; stroke: #ED3A56; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .kit-grid { padding-top: 16px; }
+    .kit-best-value {
+      position: absolute; top: -13px; left: 50%; transform: translateX(-50%);
+      background: linear-gradient(103deg,#E53863,#FF5771);
+      color: #fff; font-size: 11px; font-weight: 700;
+      padding: 4px 14px; border-radius: 20px; letter-spacing: .4px;
+      white-space: nowrap;
+      box-shadow: 0 3px 12px rgba(237,58,86,.4);
+    }
+    .kit-name { font-size: 15px; font-weight: 700; color: #111928; }
+    .kit-desc { font-size: 12px; color: #6B7280; line-height: 1.5; flex: 1; }
+    .kit-price { font-size: 13px; color: #6B7280; margin-top: 6px; }
+    .kit-price strong { color: #111928; font-weight: 800; }
+
+    @media (max-width: 900px) {
+      .kit-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+  <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════
+     1. HERO SECTION
+═══════════════════════════════════════ -->
+<section class="hero-section">
+  <img class="hero-bg" src="https://www.figma.com/api/mcp/asset/4684ce14-0c21-4ebb-b371-843e685c421f" alt="Hero background" />
+  <div class="hero-overlay"></div>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="navbar-logo">
+      <svg xmlns="http://www.w3.org/2000/svg" width="100" height="24" fill="none" viewBox="0 0 100 24"><path fill="#fff" d="M13.132 6.561h4.202v17.001h-4.202v-1.795q-1.231 1.185-2.468 1.71T7.98 24c-2.161 0-4.035-.851-5.614-2.553Q0 18.892 0 15.094c0-2.533.764-4.775 2.293-6.453Q4.585 6.124 7.86 6.124q1.507 0 2.827.58 1.32.577 2.445 1.735V6.56m-4.419 3.501q-1.95 0-3.238 1.398-1.29 1.399-1.291 3.585c0 1.458.437 2.677 1.311 3.625q1.312 1.422 3.23 1.422c1.279 0 2.415-.465 3.283-1.398q1.306-1.4 1.305-3.664c0-1.509-.434-2.677-1.305-3.594q-1.303-1.377-3.298-1.377zM21.423 6.561h4.201v1.953q1.08-1.203 2.394-1.796a6.9 6.9 0 0 1 2.873-.594c1.038 0 1.992.26 2.834.781q1.262.784 2.034 2.282 1-1.499 2.456-2.282t3.182-.781c1.15 0 2.24.28 3.143.845.904.561 1.553 1.298 1.951 2.203q.592 1.36.592 4.422v9.968h-4.235v-8.625q0-2.893-.708-3.915T40.017 10q-1.078 0-1.933.625t-1.27 1.726-.416 3.54v7.672h-4.234V15.33q0-2.282-.333-3.305-.331-1.022-.994-1.524-.665-.5-1.605-.501-1.052 0-1.907.634-.857.633-1.281 1.775-.425 1.14-.425 3.594v7.563h-4.202V6.561zM55.222 0v8.439c.758-.77 1.582-1.35 2.462-1.736a7 7 0 0 1 2.834-.58q3.28 0 5.573 2.518 2.293 2.515 2.293 6.453c0 2.625-.791 4.647-2.37 6.353S62.56 24 60.393 24a6.9 6.9 0 0 1-2.695-.522c-.833-.347-1.656-.92-2.48-1.711v1.795h-4.172V0h4.175m4.419 10.062q-1.987 0-3.295 1.377-1.307 1.376-1.308 3.594c0 1.48.437 2.732 1.308 3.664q1.308 1.399 3.295 1.398c1.323 0 2.364-.474 3.241-1.422q1.317-1.421 1.318-3.625c0-1.47-.432-2.653-1.294-3.585q-1.293-1.399-3.265-1.398zM88.382 16.298H74.88q.294 1.812 1.561 2.882 1.269 1.07 3.242 1.072 2.355-.001 4.05-1.672l3.541 1.687q-1.323 1.907-3.172 2.819c-1.235.606-2.695.914-4.39.914q-3.941 0-6.42-2.523-2.48-2.522-2.48-6.32c0-2.532.824-4.748 2.471-6.462q2.472-2.571 6.197-2.571 3.956 0 6.436 2.571t2.48 6.788l-.015.812zm-4.202-3.36q-.418-1.42-1.642-2.311-1.226-.891-2.846-.89-1.755-.001-3.083.998-.831.624-1.544 2.204zM91.01 6.561h3.602v2.14q.584-1.267 1.555-1.922a3.7 3.7 0 0 1 2.123-.655q.814 0 1.71.437l-1.308 3.673q-.74-.374-1.217-.374-.968.001-1.638 1.22-.67 1.217-.67 4.78l.016.827v6.875H91.01z"/></svg>
+    </div>
+    <div class="navbar-actions">
+      <button class="nav-btn">
+        <svg width="16" height="16" fill="none" viewBox="0 0 16 16"><path d="M8 1v10M4 7l4 4 4-4M2 14h12" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Download App
+      </button>
+      <button class="nav-btn">
+        <svg width="16" height="16" fill="none" viewBox="0 0 16 16"><path d="M8 1a5 5 0 015 5v1.5c0 .6.4 1 1 1h.5A.5.5 0 0115 9v2a.5.5 0 01-.5.5H14a2 2 0 01-2 2H9a1 1 0 01-2 0H4a2 2 0 01-2-2H1.5A.5.5 0 011 11V9a.5.5 0 01.5-.5H2c.6 0 1-.4 1-1V6a5 5 0 015-5z" stroke="#fff" stroke-width="1.3"/></svg>
+        Support
+        <svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </button>
+      <a href="index.html" class="nav-btn" style="text-decoration:none;">
+        <svg width="16" height="16" fill="none" viewBox="0 0 16 16"><path d="M2 8h12M8 2l6 6-6 6" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Amber+
+      </a>
+      <button class="nav-btn">
+        <svg width="16" height="16" fill="none" viewBox="0 0 16 16"><path d="M8 14s-6-3.7-6-8a6 6 0 1112 0c0 4.3-6 8-6 8z" stroke="#fff" stroke-width="1.4"/></svg>
+        Shortlist
+      </button>
+      <button class="nav-btn nav-btn-outline">
+        <svg width="16" height="16" fill="none" viewBox="0 0 16 16"><path d="M10 8H2m8 0l-3-3m3 3l-3 3M14 8h-2" stroke="#fff" stroke-width="1.4" stroke-linecap="round"/></svg>
+        Login
+      </button>
+      <button class="nav-btn nav-btn-outline" style="gap:8px;padding:8px;">
+        <div style="width:24px;height:24px;border-radius:50%;background:#F3F4F6;display:flex;align-items:center;justify-content:center;">
+          <svg width="14" height="14" fill="none" viewBox="0 0 14 14"><circle cx="7" cy="5" r="3" stroke="#6B7280" stroke-width="1.3"/><path d="M1 13c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="#6B7280" stroke-width="1.3"/></svg>
+        </div>
+        <svg width="16" height="12" fill="none" viewBox="0 0 16 12"><path d="M0 1h16M0 6h16M0 11h16" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero content -->
+  <div class="hero-content">
+    <div class="hero-text">
+      <h1 class="hero-title">Home away from home!</h1>
+      <p class="hero-subtitle">Book student accommodations near top universities and cities across the globe.</p>
+      <div class="hero-badges">
+        <div class="hero-badge">
+          <img src="https://www.figma.com/api/mcp/asset/f233332a-f8fc-4b01-b060-b403ef348d88" alt="" />
+          Verified Properties
+        </div>
+        <div class="hero-badge">
+          <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M12 2a6 6 0 016 6v2c0 .6.4 1 1 1h.5a.5.5 0 01.5.5v3a.5.5 0 01-.5.5H19a3 3 0 01-3 3h-4a1 1 0 01-2 0H6a3 3 0 01-3-3h-.5A.5.5 0 012 14v-3a.5.5 0 01.5-.5H3c.6 0 1-.4 1-1V8a6 6 0 016-6z" stroke="white" stroke-width="1.5"/></svg>
+          24x7 Assistance
+        </div>
+        <div class="hero-badge">
+          <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="13" rx="2" stroke="white" stroke-width="1.5"/><path d="M2 10h20" stroke="white" stroke-width="1.5"/></svg>
+          Price Match Guarantee
+        </div>
+      </div>
+    </div>
+
+    <div class="search-bar">
+      <div class="search-input-text">
+        <span class="muted">Search by&nbsp;</span>
+        <span class="placeholder">City, University and Property</span>
+      </div>
+      <button class="search-btn">
+        <img src="https://www.figma.com/api/mcp/asset/49b0304b-3522-4c8e-9ec3-b04e95aa96c9" alt="Search" />
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     2. STATS BAR
+═══════════════════════════════════════ -->
+<section class="stats-bar">
+  <!-- Decorative ellipse blobs from Figma -->
+  <img src="https://www.figma.com/api/mcp/asset/b1ce327f-3a77-4aac-a046-6d35cdcedb9a" alt="" style="position:absolute;left:23px;top:3px;width:221px;height:221px;pointer-events:none;" />
+  <img src="https://www.figma.com/api/mcp/asset/8cbea88c-80e7-4def-a4cb-8b221dc8ab1a" alt="" style="position:absolute;left:375px;top:9px;width:215px;height:215px;pointer-events:none;" />
+  <img src="https://www.figma.com/api/mcp/asset/4ad1888d-70dc-4aee-a93b-1af1540845e1" alt="" style="position:absolute;left:717px;top:-9px;width:224px;height:224px;pointer-events:none;" />
+  <img src="https://www.figma.com/api/mcp/asset/c18615ca-471f-49da-93f8-c5323e82b985" alt="" style="position:absolute;left:1090px;top:-9px;width:220px;height:220px;pointer-events:none;" />
+
+  <!-- Bed icon (multi-layer composite matching Figma) -->
+  <div class="stat-item">
+    <div style="position:relative;width:40px;height:40px;flex-shrink:0;overflow:hidden;">
+      <!-- bed top-right piece -->
+      <div style="position:absolute;top:0;right:3.25px;bottom:73.75%;left:60%;">
+        <img src="https://www.figma.com/api/mcp/asset/c4a7c5d5-cd04-4b89-9b5e-38bd718f5a12" alt="" style="width:100%;height:100%;display:block;" />
+      </div>
+      <!-- headboard/pillow -->
+      <div style="position:absolute;top:39.13%;right:19.57%;bottom:28.26%;left:10.87%;overflow:visible;">
+        <img src="https://www.figma.com/api/mcp/asset/048173fd-e2f3-4bc0-8ef8-7efa169d843b" alt="" style="position:absolute;inset:-8% -3.75%;width:calc(100% + 7.5%);height:calc(100% + 16%);display:block;" />
+      </div>
+      <!-- left leg -->
+      <div style="position:absolute;top:56.25%;right:53.75%;bottom:25%;left:5.62%;overflow:visible;">
+        <img src="https://www.figma.com/api/mcp/asset/3a75a1cf-5acb-4bd0-a0cd-72458ffdb691" alt="" style="position:absolute;inset:-6.96% -3.21%;width:calc(100% + 6.42%);height:calc(100% + 13.92%);display:block;" />
+      </div>
+      <!-- right leg -->
+      <div style="position:absolute;top:56.25%;right:13.13%;bottom:25%;left:46.25%;overflow:visible;">
+        <img src="https://www.figma.com/api/mcp/asset/500155b5-6afc-4505-8295-01b72577bc6c" alt="" style="position:absolute;inset:-6.96% -3.21%;width:calc(100% + 6.42%);height:calc(100% + 13.92%);display:block;" />
+      </div>
+      <!-- star 1 -->
+      <div style="position:absolute;top:0;right:19.37%;bottom:79.37%;left:60%;">
+        <img src="https://www.figma.com/api/mcp/asset/7525a3cf-a4db-4bc0-a38a-d71c63799512" alt="" style="width:100%;height:100%;display:block;padding:6%;" />
+      </div>
+      <!-- star 2 -->
+      <div style="position:absolute;top:18.13%;right:0;bottom:68.75%;left:86.87%;">
+        <img src="https://www.figma.com/api/mcp/asset/9d6f3ac8-4b57-434f-9897-cdc3d75379f2" alt="" style="width:100%;height:100%;display:block;padding:9%;" />
+      </div>
+    </div>
+    <div>
+      <div class="stat-title">1 M+ Beds</div>
+      <div class="stat-desc">Book your perfect place from our extensive list of options.</div>
+    </div>
+  </div>
+
+  <!-- University/graduation cap icon -->
+  <div class="stat-item">
+    <div style="position:relative;width:40px;height:40px;flex-shrink:0;overflow:hidden;">
+      <div style="position:absolute;height:26.087px;left:0;top:13.91px;width:40px;">
+        <!-- arc/curve bottom -->
+        <div style="position:absolute;top:38%;right:23.23%;bottom:1.53%;left:23.23%;overflow:visible;">
+          <img src="https://www.figma.com/api/mcp/asset/35a4b7d3-2843-42da-a092-4122385d1d54" alt="" style="position:absolute;inset:-2.72% -2.22% -3.31% -2.27%;width:calc(100% + 4.49%);height:calc(100% + 6.03%);display:block;" />
+        </div>
+        <!-- main cap -->
+        <div style="position:absolute;top:0;right:0;bottom:38.77%;left:0;overflow:visible;">
+          <img src="https://www.figma.com/api/mcp/asset/3a52f666-123e-4d76-9ff2-c0843a24a7b4" alt="" style="position:absolute;inset:0 2.42% 0.12% 2.35%;width:calc(100% - 4.77%);height:calc(100% - 0.12%);display:block;" />
+        </div>
+        <!-- tassel -->
+        <div style="position:absolute;top:20.54%;right:49.89%;bottom:0;left:5.92%;overflow:visible;">
+          <img src="https://www.figma.com/api/mcp/asset/89b9ae8d-2bab-4984-ab68-390d980b41e9" alt="" style="position:absolute;inset:-2.52% -2.95% -1.18% 2.17%;width:calc(100% + 5.12%);height:calc(100% + 3.7%);display:block;" />
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="stat-title">800+ Universities</div>
+      <div class="stat-desc">Find the best student homes near prestigious universities.</div>
+    </div>
+  </div>
+
+  <!-- Globe icon -->
+  <div class="stat-item">
+    <div style="position:relative;width:40px;height:40px;flex-shrink:0;overflow:hidden;">
+      <div style="position:absolute;top:50%;left:50%;width:32px;height:32px;transform:translate(-50%,-50%);">
+        <img src="https://www.figma.com/api/mcp/asset/eebc8980-3482-456c-9621-a3a1c69b20b5" alt="" style="position:absolute;inset:0;width:100%;height:100%;display:block;" />
+        <div style="position:absolute;top:0.8%;right:31.36%;bottom:8.62%;left:3.81%;overflow:visible;">
+          <img src="https://www.figma.com/api/mcp/asset/1a1c1cc0-7321-4745-9c35-90187108322b" alt="" style="position:absolute;inset:-1.83% -2.44% -0.3% -2.53%;width:calc(100% + 4.97%);height:calc(100% + 2.13%);display:block;" />
+        </div>
+        <div style="position:absolute;top:25.45%;right:0.44%;bottom:42.38%;left:75.75%;overflow:visible;">
+          <img src="https://www.figma.com/api/mcp/asset/b0d15605-c663-4cd7-aa4a-a501c23cdc14" alt="" style="position:absolute;inset:-6.41% -6.63% -6.39% 6.14%;width:calc(100% + 12.77%);height:calc(100% + 12.8%);display:block;" />
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="stat-title">250+ Global Cities</div>
+      <div class="stat-desc">We operate in major cities around the world.</div>
+    </div>
+  </div>
+
+  <!-- Trustpilot widget -->
+  <img class="trustpilot-img" src="https://www.figma.com/api/mcp/asset/4230e144-2a5e-4e27-b664-2a26948901a8" alt="Trustpilot rating: 4.6, 5,851 reviews" />
+</section>
+
+
+<!-- ═══════════════════════════════════════
+     3. POPULAR CITIES
+═══════════════════════════════════════ -->
+<section class="cities-section">
+  <div class="section-header">
+    <h2>Popular Cities Across The Globe</h2>
+    <p>Book student accommodations near top cities and universities around the world</p>
+  </div>
+
+  <div class="country-tabs">
+    <div class="tab-pill active">
+      <img src="https://www.figma.com/api/mcp/asset/62bf8a37-1df8-4a06-b11c-a5c67aad4312" alt="UK" />
+      United Kingdom
+    </div>
+    <div class="tab-pill">
+      <img src="https://www.figma.com/api/mcp/asset/62bf8a37-1df8-4a06-b11c-a5c67aad4312" alt="US" style="opacity:0.7" />
+      United States
+    </div>
+    <div class="tab-pill">
+      <img src="https://www.figma.com/api/mcp/asset/bb870bd2-15a1-4a17-9387-ea7305990af1" alt="AU" />
+      Australia
+    </div>
+    <div class="tab-pill">Ireland</div>
+    <div class="tab-pill">Spain</div>
+    <div class="tab-pill">Canada</div>
+  </div>
+
+  <div class="city-grid">
+    <div class="city-row">
+      <div class="city-card"><img class="city-img" src="https://www.figma.com/api/mcp/asset/874edb7a-2d87-4d7b-be99-c9d7b5076df8" alt="London"/><div class="city-gradient"><div class="city-name">London</div></div></div>
+      <div class="city-card"><img class="city-img" src="https://www.figma.com/api/mcp/asset/2b79f389-0842-46a2-a267-a4bafb30f30d" alt="Leicester"/><div class="city-gradient"><div class="city-name">Leicester</div></div></div>
+      <div class="city-card"><img class="city-img" src="https://www.figma.com/api/mcp/asset/264e4328-3be1-48f9-936a-3344b4e60af1" alt="Liverpool"/><div class="city-gradient"><div class="city-name">Liverpool</div></div></div>
+      <div class="city-card"><img class="city-img" src="https://www.figma.com/api/mcp/asset/6a67aecd-4f22-4515-b2a0-dc23f17a97f2" alt="Sheffield"/><div class="city-gradient"><div class="city-name">Sheffield</div></div></div>
+      <div class="city-card"><img class="city-img" src="https://www.figma.com/api/mcp/asset/6582d3dc-618f-4f20-bb56-b270b75d9716" alt="Newcastle"/><div class="city-gradient"><div class="city-name">Newcastle Upon Tyne</div></div></div>
+      <div class="city-card"><img class="city-img" src="https://www.figma.com/api/mcp/asset/7754575d-13ef-4cd4-abc0-520e50e41a7b" alt="Cardiff"/><div class="city-gradient"><div class="city-name">Cardiff</div></div></div>
+    </div>
+    <div class="city-row">
+      <div class="city-card"><img class="city-img" src="https://www.figma.com/api/mcp/asset/e3ff7176-3af2-4860-ab38-33616832ce2e" alt="Birmingham"/><div class="city-gradient"><div class="city-name">Birmingham</div></div></div>
+      <div class="city-card"><img class="city-img" src="https://www.figma.com/api/mcp/asset/5209d74f-e8d8-4a3e-ad6e-e88d77d3c546" alt="Nottingham"/><div class="city-gradient"><div class="city-name">Nottingham</div></div></div>
+      <div class="city-card"><img class="city-img" src="https://www.figma.com/api/mcp/asset/c05c86f7-55a1-4bcb-8c3b-c448171f234e" alt="Coventry"/><div class="city-gradient"><div class="city-name">Coventry</div></div></div>
+      <div class="city-card"><img class="city-img" src="https://www.figma.com/api/mcp/asset/4e1c58fe-4eca-4802-b990-e2b6303e9ab2" alt="Leeds"/><div class="city-gradient"><div class="city-name">Leeds</div></div></div>
+      <div class="city-card"><img class="city-img" src="https://www.figma.com/api/mcp/asset/190257fb-d6bd-46d2-a6f6-b4981d1af528" alt="Manchester"/><div class="city-gradient"><div class="city-name">Manchester</div></div></div>
+      <div class="city-card"><img class="city-img" src="https://www.figma.com/api/mcp/asset/320f70a4-2cd6-41a5-9694-bda1ba6360b2" alt="Swansea"/><div class="city-gradient"><div class="city-name">Swansea</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     4. PROPERTIES
+═══════════════════════════════════════ -->
+<section class="properties-section">
+  <div class="section-header">
+    <h2>Thousands Of Properties Globally</h2>
+    <p>From studios to private rooms to shared apartments, we've got it all.</p>
+  </div>
+
+  <div class="city-tabs">
+    <div class="tab-pill active">London</div>
+    <div class="tab-pill">Canterbury</div>
+    <div class="tab-pill">Nottingham</div>
+    <div class="tab-pill">Birmingham</div>
+    <div class="tab-pill">Sydney</div>
+    <div class="tab-pill">Manchester</div>
+    <div class="tab-pill">Kingston</div>
+  </div>
+
+  <div style="position:relative;">
+    <div class="prop-cards-rail" id="propRail">
+      <!-- Card repeated 6 times -->
+      <div class="property-card">
+        <div class="prop-img-wrap">
+          <img src="https://www.figma.com/api/mcp/asset/7a17a4e3-b24a-4bc0-ac76-db6ecc76e1c3" alt="Property" />
+          <div class="prop-badge">Filling Fast</div>
+          <div class="prop-heart"><svg viewBox="0 0 16 16" fill="none"><path d="M8 14s-5-3.6-5-7.5a3.5 3.5 0 017 0 3.5 3.5 0 017 0C17 10.4 8 14 8 14z" stroke="#6B7280" stroke-width="1.3"/></svg></div>
+          <div class="prop-dots"><div class="prop-dot"></div><div class="prop-dot inactive"></div><div class="prop-dot inactive"></div></div>
+        </div>
+        <div class="prop-info">
+          <div class="prop-name">IQ Will Wyatt Court, Lane St.</div>
+          <div class="prop-loc">Miles st, London</div>
+          <div class="prop-bottom">
+            <div class="prop-price"><span class="from">From </span><span class="amount">£200/</span><span class="unit">week</span></div>
+            <div class="prop-rating"><span class="star">★</span> 4.0 <span style="color:#6B7280">(4)</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="property-card">
+        <div class="prop-img-wrap">
+          <img src="https://www.figma.com/api/mcp/asset/7a17a4e3-b24a-4bc0-ac76-db6ecc76e1c3" alt="Property" />
+          <div class="prop-badge">Filling Fast</div>
+          <div class="prop-heart"><svg viewBox="0 0 16 16" fill="none"><path d="M8 14s-5-3.6-5-7.5a3.5 3.5 0 017 0 3.5 3.5 0 017 0C17 10.4 8 14 8 14z" stroke="#6B7280" stroke-width="1.3"/></svg></div>
+          <div class="prop-dots"><div class="prop-dot"></div><div class="prop-dot inactive"></div><div class="prop-dot inactive"></div></div>
+        </div>
+        <div class="prop-info">
+          <div class="prop-name">IQ Will Wyatt Court, Lane St.</div>
+          <div class="prop-loc">Miles st, London</div>
+          <div class="prop-bottom">
+            <div class="prop-price"><span class="from">From </span><span class="amount">£200/</span><span class="unit">week</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="property-card">
+        <div class="prop-img-wrap">
+          <img src="https://www.figma.com/api/mcp/asset/7a17a4e3-b24a-4bc0-ac76-db6ecc76e1c3" alt="Property" />
+          <div class="prop-badge">Filling Fast</div>
+          <div class="prop-heart"><svg viewBox="0 0 16 16" fill="none"><path d="M8 14s-5-3.6-5-7.5a3.5 3.5 0 017 0 3.5 3.5 0 017 0C17 10.4 8 14 8 14z" stroke="#6B7280" stroke-width="1.3"/></svg></div>
+          <div class="prop-dots"><div class="prop-dot"></div><div class="prop-dot inactive"></div><div class="prop-dot inactive"></div></div>
+        </div>
+        <div class="prop-info">
+          <div class="prop-name">IQ Will Wyatt Court, Lane St.</div>
+          <div class="prop-loc">Miles st, London</div>
+          <div class="prop-bottom">
+            <div class="prop-price"><span class="from">From </span><span class="amount">£200/</span><span class="unit">week</span></div>
+            <div class="prop-rating"><span class="star">★</span> 4.0 <span style="color:#6B7280">(4)</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="property-card">
+        <div class="prop-img-wrap">
+          <img src="https://www.figma.com/api/mcp/asset/7a17a4e3-b24a-4bc0-ac76-db6ecc76e1c3" alt="Property" />
+          <div class="prop-badge">Filling Fast</div>
+          <div class="prop-heart"><svg viewBox="0 0 16 16" fill="none"><path d="M8 14s-5-3.6-5-7.5a3.5 3.5 0 017 0 3.5 3.5 0 017 0C17 10.4 8 14 8 14z" stroke="#6B7280" stroke-width="1.3"/></svg></div>
+          <div class="prop-dots"><div class="prop-dot"></div><div class="prop-dot inactive"></div><div class="prop-dot inactive"></div></div>
+        </div>
+        <div class="prop-info">
+          <div class="prop-name">IQ Will Wyatt Court, Lane St.</div>
+          <div class="prop-loc">Miles st, London</div>
+          <div class="prop-bottom">
+            <div class="prop-price"><span class="from">From </span><span class="amount">£200/</span><span class="unit">week</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="property-card">
+        <div class="prop-img-wrap">
+          <img src="https://www.figma.com/api/mcp/asset/7a17a4e3-b24a-4bc0-ac76-db6ecc76e1c3" alt="Property" />
+          <div class="prop-badge">Filling Fast</div>
+          <div class="prop-heart"><svg viewBox="0 0 16 16" fill="none"><path d="M8 14s-5-3.6-5-7.5a3.5 3.5 0 017 0 3.5 3.5 0 017 0C17 10.4 8 14 8 14z" stroke="#6B7280" stroke-width="1.3"/></svg></div>
+          <div class="prop-dots"><div class="prop-dot"></div><div class="prop-dot inactive"></div><div class="prop-dot inactive"></div></div>
+        </div>
+        <div class="prop-info">
+          <div class="prop-name">IQ Will Wyatt Court, Lane St.</div>
+          <div class="prop-loc">Miles st, London</div>
+          <div class="prop-bottom">
+            <div class="prop-price"><span class="from">From </span><span class="amount">£200/</span><span class="unit">week</span></div>
+            <div class="prop-rating"><span class="star">★</span> 4.0 <span style="color:#6B7280">(4)</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Fade + arrow -->
+    <div style="position:absolute;right:0;top:0;bottom:0;width:104px;background:linear-gradient(to left,rgba(255,255,255,1) 22%,rgba(255,255,255,0));pointer-events:none;"></div>
+    <button class="scroll-btn" style="position:absolute;right:-17px;top:50%;transform:translateY(-50%);">
+      <svg width="16" height="16" fill="none" viewBox="0 0 16 16"><path d="M5.5 3L10 8l-4.5 5" stroke="#374151" stroke-width="1.5" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     5. TESTIMONIALS
+═══════════════════════════════════════ -->
+<section class="testimonials-section">
+  <div class="testi-header">
+    <h2 class="testi-title">Trust of 1 Million+ students</h2>
+    <img src="https://www.figma.com/api/mcp/asset/6388cd02-a461-4fd3-965f-d93162dcb66d" alt="Trustpilot" style="height:30px;object-fit:contain;" />
+  </div>
+
+  <div style="position:relative;width:1280px;">
+    <div class="testi-cards">
+      <div class="testi-card">
+        <p class="testi-text">Experience was amazing!! I'm going to Plymouth College of Art. Great prices &amp; the rent durations are negotiable. Also as an art student I do.</p>
+        <div class="testi-reviewer">
+          <img class="testi-flag" src="https://www.figma.com/api/mcp/asset/5af1b5ed-535a-43ad-b6c7-b8ab17121e66" alt="flag" />
+          <div><div class="testi-name">Quezia Jones</div><div class="testi-uni">Lancaster University</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <p class="testi-text">Experience was amazing!! I'm going to Plymouth College of Art. Great prices &amp; the rent durations are negotiable. Also as an art student I do.</p>
+        <div class="testi-reviewer">
+          <img class="testi-flag" src="https://www.figma.com/api/mcp/asset/5af1b5ed-535a-43ad-b6c7-b8ab17121e66" alt="flag" />
+          <div><div class="testi-name">Quezia Jones</div><div class="testi-uni">Lancaster University</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <p class="testi-text">Experience was amazing!! I'm going to Plymouth College of Art. Great prices &amp; the rent durations are negotiable. Also as an art student I do.</p>
+        <div class="testi-reviewer">
+          <img class="testi-flag" src="https://www.figma.com/api/mcp/asset/5af1b5ed-535a-43ad-b6c7-b8ab17121e66" alt="flag" />
+          <div><div class="testi-name">Quezia Jones</div><div class="testi-uni">Lancaster University</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <p class="testi-text">Experience was amazing!! I'm going to Plymouth College of Art. Great prices &amp; the rent durations are negotiable. Also as an art student I do.</p>
+        <div class="testi-reviewer">
+          <img class="testi-flag" src="https://www.figma.com/api/mcp/asset/5af1b5ed-535a-43ad-b6c7-b8ab17121e66" alt="flag" />
+          <div><div class="testi-name">Quezia Jones</div><div class="testi-uni">Lancaster University</div></div>
+        </div>
+      </div>
+    </div>
+    <div style="position:absolute;right:0;top:0;bottom:0;width:104px;background:linear-gradient(to left,rgba(255,255,255,0.83) 22%,transparent);pointer-events:none;"></div>
+    <button class="scroll-btn" style="position:absolute;right:-16px;top:50%;transform:translateY(-50%);">
+      <svg width="16" height="16" fill="none" viewBox="0 0 16 16"><path d="M5.5 3L10 8l-4.5 5" stroke="#374151" stroke-width="1.5" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     7. BOOK PERFECT ACCOMMODATION
+═══════════════════════════════════════ -->
+<!-- ═══════════════════════════════════════
+     2.5 AMBER PLUS SERVICES
+═══════════════════════════════════════ -->
+<section class="services-section">
+  <div class="section-header">
+    <h2>Amber Plus Services</h2>
+    <p>Everything you need for your international student journey — all in one place</p>
+  </div>
+
+  <div class="services-card">
+    <!-- ── Tab Navigation ── -->
+    <div class="services-tabs" role="tablist">
+
+      <!-- 1. Forex Card -->
+      <button class="svc-tab active" role="tab" onclick="switchSvcTab('forex', this)">
+        <div class="svc-tab-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/><line x1="6" y1="15" x2="10" y2="15"/></svg>
+        </div>
+        <span class="svc-tab-label">Forex Card</span>
+        <div class="svc-tab-underline"></div>
+      </button>
+
+      <!-- 2. Student Essentials Kit -->
+      <button class="svc-tab" role="tab" onclick="switchSvcTab('essentials', this)">
+        <div class="svc-tab-icon">
+          <svg viewBox="0 0 24 24"><path d="M16.5 9.4 7.55 4.24"/><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+        </div>
+        <span class="svc-tab-label">Student Essentials Kit</span>
+        <div class="svc-tab-underline"></div>
+      </button>
+
+      <!-- 3. Remittances -->
+      <button class="svc-tab" role="tab" onclick="switchSvcTab('remittances', this)">
+        <div class="svc-tab-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M14.5 8.5A2.5 2.5 0 0 0 12 6v0a2.5 2.5 0 0 0 0 5h0a2.5 2.5 0 0 1 0 5v0A2.5 2.5 0 0 1 9.5 13.5"/><line x1="12" y1="4" x2="12" y2="6"/><line x1="12" y1="16" x2="12" y2="18"/></svg>
+        </div>
+        <span class="svc-tab-label">Remittances</span>
+        <div class="svc-tab-underline"></div>
+      </button>
+
+      <!-- 4. Credit Card -->
+      <button class="svc-tab" role="tab" onclick="switchSvcTab('creditcard', this)">
+        <div class="svc-tab-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/><circle cx="7" cy="15" r="1.5" fill="currentColor" stroke="none"/><circle cx="11" cy="15" r="1.5" fill="currentColor" stroke="none" opacity=".4"/></svg>
+        </div>
+        <span class="svc-tab-label">Credit Card</span>
+        <div class="svc-tab-underline"></div>
+      </button>
+
+      <!-- 5. International Bank -->
+      <button class="svc-tab" role="tab" onclick="switchSvcTab('intlbank', this)">
+        <div class="svc-tab-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="21" x2="21" y2="21"/><line x1="3" y1="10" x2="21" y2="10"/><polyline points="5 6 12 3 19 6"/><line x1="4" y1="10" x2="4" y2="21"/><line x1="8" y1="10" x2="8" y2="21"/><line x1="12" y1="10" x2="12" y2="21"/><line x1="16" y1="10" x2="16" y2="21"/><line x1="20" y1="10" x2="20" y2="21"/></svg>
+        </div>
+        <span class="svc-tab-label">International Bank</span>
+        <div class="svc-tab-underline"></div>
+      </button>
+
+    </div><!-- /services-tabs -->
+
+    <!-- ════════════════════════════════════
+         PANEL 1 — FOREX & REMITTANCES
+    ════════════════════════════════════ -->
+    <div class="svc-panel active" id="svc-panel-forex">
+
+      <!-- Top row: toggle + rate note side by side -->
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:32px;">
+        <!-- Sub-tabs: Forex Card | Currency -->
+        <div style="display:flex;gap:0;background:#F9FAFB;border:1.5px solid #E5E7EB;border-radius:40px;padding:4px;box-shadow:0 1px 4px rgba(0,0,0,0.06);">
+          <button class="forex-sub-tab active" onclick="switchForexSub('card',this)">
+            <svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+            Forex Card
+          </button>
+          <button class="forex-sub-tab" onclick="switchForexSub('currency',this)">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M14.5 8.5A2.5 2.5 0 0 0 12 6v0a2.5 2.5 0 0 0 0 5h0a2.5 2.5 0 0 1 0 5v0A2.5 2.5 0 0 1 9.5 13.5"/><line x1="12" y1="4" x2="12" y2="6"/><line x1="12" y1="16" x2="12" y2="18"/></svg>
+            Currency
+          </button>
+        </div>
+        <!-- Rate note inline -->
+        <div style="display:flex;align-items:center;gap:10px;background:#F0FDF4;border:1px solid #D1FAE5;border-radius:40px;padding:10px 20px;">
+          <span style="font-size:20px;">💵</span>
+          <span style="font-size:13px;color:#374151;font-weight:500;">Current <span id="forex-curr-note" style="font-weight:700;color:#111928;">USD</span> Conversion Rate Is</span>
+          <span style="font-size:16px;font-weight:800;color:#111928;letter-spacing:-0.3px;" id="forex-rate-note-val">83.92</span>
+        </div>
+      </div>
+
+
+      <!-- Three-column field bar -->
+      <div class="forex-fields" style="grid-template-columns:1fr 1fr 1fr;">
+        <!-- Currency -->
+        <div class="forex-field">
+          <div class="forex-field-label">Currency</div>
+          <div class="forex-field-value">
+            <span class="flag-emoji" id="forex-flag">🇺🇸</span>
+            <select id="forex-currency" onchange="updateForexCurrency()" style="font-size:18px;font-weight:700;color:#111928;border:none;outline:none;background:transparent;font-family:inherit;cursor:pointer;">
+              <option value="GBP" data-rate="106.84" data-flag="🇬🇧">GBP</option>
+              <option value="USD" data-rate="83.92" data-flag="🇺🇸" selected>USD</option>
+              <option value="CAD" data-rate="61.45" data-flag="🇨🇦">CAD</option>
+              <option value="AUD" data-rate="54.12" data-flag="🇦🇺">AUD</option>
+              <option value="EUR" data-rate="91.78" data-flag="🇪🇺">EUR</option>
+            </select>
+          </div>
+          <div class="forex-field-sub" id="forex-currency-name">US Dollar</div>
+        </div>
+        <!-- Forex Amount -->
+        <div class="forex-field">
+          <div class="forex-field-label">Forex Amount</div>
+          <div class="forex-field-value">
+            <input type="number" id="forex-amount" placeholder="1000" value="1000" oninput="calcForex()" style="font-size:20px;font-weight:700;color:#111928;border:none;outline:none;background:transparent;font-family:inherit;width:100%;" />
+          </div>
+          <div class="forex-field-sub" id="forex-curr-label">USD</div>
+        </div>
+        <!-- INR Amount -->
+        <div class="forex-field" style="background:#F9FAFB;">
+          <div class="forex-field-label">INR Amount</div>
+          <div class="forex-field-value" style="font-size:20px;color:#059669;" id="forex-inr-display">₹83,920</div>
+          <div class="forex-field-sub">Indian Rupee</div>
+        </div>
+      </div>
+
+
+      <!-- CTA -->
+      <button class="svc-cta-btn" style="margin:0 auto;">
+        Continue
+      </button>
+
+
+    </div><!-- /panel-forex -->
+
+    <!-- ════════════════════════════════════
+         PANEL 2 — STUDENT ESSENTIALS KIT
+    ════════════════════════════════════ -->
+    <div class="svc-panel" id="svc-panel-essentials">
+      <div class="kit-grid">
+
+        <!-- Kit 1: Standard -->
+        <div class="kit-card" onclick="selectKit(this)" data-value="standard">
+          <div class="kit-card-top">
+            <div class="kit-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            </div>
+          </div>
+          <div class="kit-name">Standard Kit</div>
+          <div class="kit-desc">The essentials to get you through your first week — bedding, toiletries &amp; kitchen basics.</div>
+          <div class="kit-price">From <strong>£49</strong></div>
+        </div>
+
+        <!-- Kit 2: Premium -->
+        <div class="kit-card" onclick="selectKit(this)" data-value="premium">
+          <div class="kit-card-top">
+            <div class="kit-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </div>
+          </div>
+          <div class="kit-name">Premium Kit</div>
+          <div class="kit-desc">Step up with premium bedding, full cookware &amp; a personal care bundle.</div>
+          <div class="kit-price">From <strong>£89</strong></div>
+        </div>
+
+        <!-- Kit 3: Deluxe -->
+        <div class="kit-card" onclick="selectKit(this)" data-value="deluxe">
+          <div class="kit-card-top">
+            <div class="kit-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32"/></svg>
+            </div>
+          </div>
+          <div class="kit-name">Deluxe Kit</div>
+          <div class="kit-desc">Everything in Premium, plus tech accessories &amp; study essentials for your room.</div>
+          <div class="kit-price">From <strong>£129</strong></div>
+        </div>
+
+        <!-- Kit 4: International -->
+        <div class="kit-card" onclick="selectKit(this)" data-value="international">
+          <div class="kit-best-value">★ Most Popular</div>
+          <div class="kit-card-top">
+            <div class="kit-icon-wrap" style="background:linear-gradient(135deg,#FFF1F4,#FFE0E6);">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="stroke:#ED3A56;"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            </div>
+          </div>
+          <div class="kit-name">International Kit</div>
+          <div class="kit-desc">Built for students arriving from abroad — adapters, SIM &amp; everything in Deluxe.</div>
+          <div class="kit-price">From <strong>£169</strong></div>
+        </div>
+
+      </div><!-- /kit-grid -->
+      <button class="svc-cta-btn" id="kit-cta-btn" style="margin:28px auto 0;opacity:.45;pointer-events:none;" onclick="proceedKit()">
+        Continue with Selected Kit
+      </button>
+    </div><!-- /panel-essentials -->
+
+    <!-- ════════════════════════════════════
+         PANEL 3 — REMITTANCES
+    ════════════════════════════════════ -->
+    <div class="svc-panel" id="svc-panel-remittances">
+      <!-- Rate banner -->
+      <div class="panel-fields">
+        <div class="panel-fields-row cols-4">
+          <div class="panel-field">
+            <div class="panel-field-label">Send Amount (₹)</div>
+            <input class="panel-field-input" type="number" placeholder="e.g. 500000" id="remit-send" oninput="calcRemit()" />
+          </div>
+          <div class="panel-field">
+            <div class="panel-field-label">Destination Country</div>
+            <select class="panel-field-select" id="remit-country" onchange="calcRemit()">
+              <option value="GBP" data-rate="106.84" data-symbol="£">United Kingdom (GBP)</option>
+              <option value="USD" data-rate="83.92" data-symbol="$">United States (USD)</option>
+              <option value="CAD" data-rate="61.45" data-symbol="C$">Canada (CAD)</option>
+              <option value="AUD" data-rate="54.12" data-symbol="A$">Australia (AUD)</option>
+              <option value="EUR" data-rate="91.78" data-symbol="€">Europe (EUR)</option>
+            </select>
+          </div>
+          <div class="panel-field">
+            <div class="panel-field-label">Recipient Gets</div>
+            <input class="panel-field-input" type="text" id="remit-receives" value="—" readonly style="color:#059669;font-weight:700;cursor:default;" />
+          </div>
+          <div class="panel-field" style="border-right:none;">
+            <div class="panel-field-label">Transfer Speed</div>
+            <select class="panel-field-select">
+              <option>Standard (2–3 business days)</option>
+              <option>Express (same day)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <button class="svc-cta-btn" style="margin:0 auto;">
+        Send Money Now
+      </button>
+    </div><!-- /panel-remittances -->
+
+    <!-- ════════════════════════════════════
+         PANEL 4 — CREDIT CARD
+    ════════════════════════════════════ -->
+    <div class="svc-panel" id="svc-panel-creditcard">
+      <div class="panel-fields">
+        <div class="panel-fields-row cols-4">
+          <div class="panel-field">
+            <div class="panel-field-label">Full Name</div>
+            <input class="panel-field-input" type="text" placeholder="As on passport" />
+          </div>
+          <div class="panel-field">
+            <div class="panel-field-label">Date of Birth</div>
+            <input class="panel-field-input" type="date" />
+          </div>
+          <div class="panel-field">
+            <div class="panel-field-label">University / College</div>
+            <input class="panel-field-input" type="text" placeholder="e.g. University of Manchester" />
+          </div>
+          <div class="panel-field" style="border-right:none;">
+            <div class="panel-field-label">Country of Study</div>
+            <select class="panel-field-select">
+              <option>United Kingdom</option>
+              <option>United States</option>
+              <option>Canada</option>
+              <option>Australia</option>
+              <option>Germany</option>
+              <option>Ireland</option>
+              <option>Netherlands</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <button class="svc-cta-btn" style="margin:0 auto;">
+        Apply for Credit Card
+      </button>
+    </div><!-- /panel-creditcard -->
+
+    <!-- ════════════════════════════════════
+         PANEL 5 — INTERNATIONAL BANK
+    ════════════════════════════════════ -->
+    <div class="svc-panel" id="svc-panel-intlbank">
+      <div class="panel-fields">
+        <div class="panel-fields-row cols-4">
+          <div class="panel-field">
+            <div class="panel-field-label">Country of Study</div>
+            <select class="panel-field-select" id="intlbank-country" onchange="updateBankOptions()">
+              <option value="uk">United Kingdom</option>
+              <option value="us">United States</option>
+              <option value="ca">Canada</option>
+              <option value="au">Australia</option>
+              <option value="de">Germany</option>
+            </select>
+          </div>
+          <div class="panel-field">
+            <div class="panel-field-label">Preferred Bank</div>
+            <select class="panel-field-select" id="intlbank-bank">
+              <option>Monzo (UK)</option>
+              <option>Barclays (UK)</option>
+              <option>HSBC (UK)</option>
+              <option>Lloyds Bank (UK)</option>
+            </select>
+          </div>
+          <div class="panel-field">
+            <div class="panel-field-label">Account Type</div>
+            <select class="panel-field-select">
+              <option>Current Account</option>
+              <option>Savings Account</option>
+              <option>Student Account</option>
+            </select>
+          </div>
+          <div class="panel-field" style="border-right:none;">
+            <div class="panel-field-label">Preferred Opening Date</div>
+            <input class="panel-field-input" type="date" />
+          </div>
+        </div>
+      </div>
+      <button class="svc-cta-btn" style="margin:0 auto;">
+        Open Bank Account
+      </button>
+    </div><!-- /panel-intlbank -->
+
+  </div><!-- /services-card -->
+</section>
+
+<!-- ═════ SERVICES JAVASCRIPT ═════ -->
+<script>
+  // Tab switching
+  // Auto-activate tab from URL param e.g. ?svc=flights
+  (function() {
+    var svc = new URLSearchParams(window.location.search).get('svc');
+    if (svc) {
+      window.addEventListener('DOMContentLoaded', function() {
+        var btn = document.querySelector('[onclick*="switchSvcTab(\'' + svc + '\'"]');
+        if (btn) btn.click();
+      });
+    }
+  })();
+
+  function switchSvcTab(panelId, btn) {
+    // Deactivate all tabs
+    document.querySelectorAll('.svc-tab').forEach(t => t.classList.remove('active'));
+    // Deactivate all panels
+    document.querySelectorAll('.svc-panel').forEach(p => p.classList.remove('active'));
+    // Activate clicked tab
+    btn.classList.add('active');
+    // Activate matching panel
+    document.getElementById('svc-panel-' + panelId).classList.add('active');
+  }
+
+  // Forex sub-tabs
+  function switchForexSub(type, btn) {
+    btn.closest('div').querySelectorAll('.forex-sub-tab').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+  }
+
+  // Forex calculator
+  var FOREX_RATES = { GBP: 106.84, USD: 83.92, CAD: 61.45, AUD: 54.12, EUR: 91.78 };
+  var FOREX_NAMES = { GBP: 'British Pound', USD: 'US Dollar', CAD: 'Canadian Dollar', AUD: 'Australian Dollar', EUR: 'Euro' };
+  var FOREX_FLAGS = { GBP: '🇬🇧', USD: '🇺🇸', CAD: '🇨🇦', AUD: '🇦🇺', EUR: '🇪🇺' };
+
+  function updateForexCurrency() {
+    var sel = document.getElementById('forex-currency');
+    var curr = sel.value;
+    var rate = FOREX_RATES[curr];
+    document.getElementById('forex-flag').textContent = FOREX_FLAGS[curr];
+    document.getElementById('forex-currency-name').textContent = FOREX_NAMES[curr];
+    document.getElementById('forex-curr-label').textContent = curr;
+    document.getElementById('forex-curr-note').textContent = curr;
+    document.getElementById('forex-live-rate').textContent = '₹' + rate.toFixed(2);
+    document.getElementById('forex-rate-note-val').textContent = rate.toFixed(2);
+    calcForex();
+  }
+
+  function calcForex() {
+    var curr = document.getElementById('forex-currency').value;
+    var amt  = parseFloat(document.getElementById('forex-amount').value) || 0;
+    var rate = FOREX_RATES[curr] || 83.92;
+    var inr  = amt * rate;
+    document.getElementById('forex-inr-display').textContent = '₹' + inr.toLocaleString('en-IN', {maximumFractionDigits: 0});
+  }
+
+  // Init
+  calcForex();
+
+  // ── Kit selector ──
+  function selectKit(card) {
+    var isSelected = card.classList.contains('selected');
+    document.querySelectorAll('.kit-card').forEach(k => k.classList.remove('selected'));
+    var btn = document.getElementById('kit-cta-btn');
+    if (!isSelected) {
+      card.classList.add('selected');
+      btn.style.opacity = '1';
+      btn.style.pointerEvents = 'auto';
+    } else {
+      btn.style.opacity = '.45';
+      btn.style.pointerEvents = 'none';
+    }
+  }
+  function proceedKit() {
+    var sel = document.querySelector('.kit-card.selected');
+    if (!sel) return;
+    var name = sel.querySelector('.kit-name').textContent;
+    alert('You selected: ' + name + '\nWe\'ll redirect you to confirm your order.');
+  }
+
+
+  // ── Remittance calculator ──
+  function calcRemit() {
+    var amtEl = document.getElementById('remit-send');
+    var sel   = document.getElementById('remit-country');
+    var opt   = sel.options[sel.selectedIndex];
+    var rate  = parseFloat(opt.getAttribute('data-rate')) || 1;
+    var sym   = opt.getAttribute('data-symbol') || '';
+    var amt   = parseFloat(amtEl.value) || 0;
+    var out   = document.getElementById('remit-receives');
+    if (amt > 0) {
+      var result = (amt / rate).toFixed(2);
+      out.value = sym + parseFloat(result).toLocaleString('en', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+    } else {
+      out.value = '—';
+    }
+  }
+
+  // ── International Bank — update bank options by country ──
+  var BANK_OPTIONS = {
+    uk: ['Monzo (UK)', 'Barclays (UK)', 'HSBC (UK)', 'Lloyds Bank (UK)', 'NatWest (UK)'],
+    us: ['Chase (US)', 'Bank of America (US)', 'Wells Fargo (US)', 'Citibank (US)'],
+    ca: ['TD Bank (CA)', 'RBC (CA)', 'Scotiabank (CA)', 'BMO (CA)'],
+    au: ['Commonwealth Bank (AU)', 'ANZ (AU)', 'Westpac (AU)', 'NAB (AU)'],
+    de: ['Deutsche Bank (DE)', 'N26 (DE)', 'Commerzbank (DE)']
+  };
+  function updateBankOptions() {
+    var country = document.getElementById('intlbank-country').value;
+    var sel     = document.getElementById('intlbank-bank');
+    var banks   = BANK_OPTIONS[country] || [];
+    sel.innerHTML = banks.map(b => '<option>' + b + '</option>').join('');
+  }
+</script>
+
+<section class="booking-section">
+  <div class="section-header">
+    <h2>Book Your Perfect Accommodation</h2>
+    <p>Take the hassle out of securing your student home for the best years of your life</p>
+  </div>
+  <div class="booking-features">
+    <div class="feat-item">
+      <img class="feat-icon" src="https://www.figma.com/api/mcp/asset/706a521f-93bb-401d-ad66-0b59bf762f26" alt="" />
+      <div class="feat-title">Fast &amp; Easy Bookings</div>
+      <div class="feat-desc">Time is money. Save both when you book with us.</div>
+    </div>
+    <div class="feat-item">
+      <img class="feat-icon" src="https://www.figma.com/api/mcp/asset/410970e8-d099-480f-8614-487bdc097aff" alt="" />
+      <div class="feat-title">Price Match Guarantee</div>
+      <div class="feat-desc">Find a lower price &amp; we'll match it. No questions asked.</div>
+      <a class="feat-link" href="#">View details</a>
+    </div>
+    <div class="feat-item">
+      <img class="feat-icon" src="https://www.figma.com/api/mcp/asset/9a8e4878-fb9e-48ac-8fd3-1098c7b18619" alt="" />
+      <div class="feat-title">24x7 Assistance</div>
+      <div class="feat-desc">If you have a doubt or a query, we're always a call away.</div>
+    </div>
+    <div class="feat-item">
+      <img class="feat-icon" src="https://www.figma.com/api/mcp/asset/ee366e63-2906-46ec-b7aa-38d742426488" alt="" />
+      <div class="feat-title">100% Verified Listings</div>
+      <div class="feat-desc">We promise to deliver what you see on the website.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     8. REFERRALS & OFFERS
+═══════════════════════════════════════ -->
+<section class="referrals-section">
+  <div class="section-header">
+    <h2>Amber Referrals And Offers</h2>
+    <p>Because we go beyond four walls to enhance your student life</p>
+  </div>
+  <div style="position:relative;">
+    <div class="offer-cards">
+      <div class="offer-card" style="display:flex;flex-direction:column;justify-content:space-between;">
+        <img class="offer-bg" src="https://www.figma.com/api/mcp/asset/58a70674-496a-4e81-9a8f-a2f903e1e369" alt="" />
+        <div class="offer-card-content">
+          <div class="offer-title">Get additional $20 cashback<br>on your booking!</div>
+          <div class="offer-desc">Book your stay with us by June 20th for a chance to win a £300 Apple gift card</div>
+        </div>
+        <button class="offer-btn">Refer Now</button>
+      </div>
+      <div class="offer-card" style="display:flex;flex-direction:column;justify-content:space-between;">
+        <img class="offer-bg" src="https://www.figma.com/api/mcp/asset/52a787e1-f23d-4353-9607-27dfd4ec26f3" alt="" />
+        <div class="offer-card-content">
+          <div class="offer-title">Get $15,000 Scholarships!</div>
+          <div class="offer-desc">Book to get a scholarship</div>
+        </div>
+        <button class="offer-btn" onclick="window.location.href='index.html'">Apply Now</button>
+      </div>
+      <div class="offer-card" style="display:flex;flex-direction:column;justify-content:space-between;">
+        <img class="offer-bg" src="https://www.figma.com/api/mcp/asset/125319b3-f2ba-4bc9-8540-ef3fcd270272" alt="" />
+        <div class="offer-card-content">
+          <div class="offer-title">Win $50 in just a few steps!<br>Refer &amp; Earn</div>
+          <div class="offer-desc">Turn connections into rewards – Get credited after their successful booking.</div>
+        </div>
+        <button class="offer-btn">Refer Now</button>
+      </div>
+    </div>
+    <div style="position:absolute;right:0;top:0;bottom:0;width:104px;background:linear-gradient(to left,rgba(249,250,251,0.83) 22%,transparent);pointer-events:none;"></div>
+    <button class="scroll-btn" style="position:absolute;right:-17px;top:50%;transform:translateY(-50%);">
+      <svg width="16" height="16" fill="none" viewBox="0 0 16 16"><path d="M5.5 3L10 8l-4.5 5" stroke="#374151" stroke-width="1.5" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     9. 3 EASY STEPS
+═══════════════════════════════════════ -->
+<section class="steps-section">
+  <div class="section-header">
+    <h2>Book Your Place In 3 Easy Steps</h2>
+    <p>Let us do the work while you focus on your preparations</p>
+  </div>
+  <div class="steps-row">
+    <div class="step-card">
+      <div class="step-num-wrap">1</div>
+      <div class="step-inner">
+        <img class="step-icon" src="https://www.figma.com/api/mcp/asset/b42f9147-f252-480b-b55c-5ddb4a6f0aec" alt="" />
+        <div>
+          <div class="step-title">Discover &amp; Finalise</div>
+          <div class="step-desc">Choose from a plethora of verified student home listings</div>
+        </div>
+      </div>
+    </div>
+    <div class="step-arrow"></div>
+    <div class="step-card">
+      <div class="step-num-wrap">2</div>
+      <div class="step-inner">
+        <img class="step-icon" src="https://www.figma.com/api/mcp/asset/6ca313d9-d524-4b90-9c18-ac393e6345fe" alt="" />
+        <div>
+          <div class="step-title">Get your paperwork done</div>
+          <div class="step-desc">We handle the paperwork, so you can relax and focus.</div>
+        </div>
+      </div>
+    </div>
+    <div class="step-arrow"></div>
+    <div class="step-card">
+      <div class="step-num-wrap">3</div>
+      <div class="step-inner">
+        <img class="step-icon" src="https://www.figma.com/api/mcp/asset/a33aaffc-5019-4853-bd58-c6c4ed5248c7" alt="" />
+        <div>
+          <div class="step-title">Accommodation booked!</div>
+          <div class="step-desc">Relax, pack your bags, and unravel a new life chapter!</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     10. BEST PARTNERS
+═══════════════════════════════════════ -->
+<section class="partners-section">
+  <div class="section-header">
+    <h2>We Have The Best Partners</h2>
+  </div>
+  <div class="partners-marquee-wrap">
+    <div class="partners-logos" aria-hidden="false">
+      <!-- set 1 -->
+      <div class="partner-logo"><img src="https://www.figma.com/api/mcp/asset/d9295375-fcb3-4ea2-82d9-a7da7ad8d563" alt="Torrens University" /></div>
+      <div class="partner-logo"><img src="https://www.figma.com/api/mcp/asset/decd88d0-89a5-4e51-8868-8a7e20efc22a" alt="University of Europe" /></div>
+      <div class="partner-logo"><img src="https://www.figma.com/api/mcp/asset/88a2ae03-1cf0-41b9-93c8-b0220e523fd0" alt="BIMM University" /></div>
+      <div class="partner-logo"><img src="https://www.figma.com/api/mcp/asset/3563f145-7c2d-43ab-bde1-1a25d968c62e" alt="Niagara College" /></div>
+      <div class="partner-logo"><img src="https://www.figma.com/api/mcp/asset/c0b0065e-874a-4d2d-86c9-ac6e388a2717" alt="James Cook University" /></div>
+      <div class="partner-logo"><img src="https://www.figma.com/api/mcp/asset/41e08885-e56b-49c7-8db7-5d36e2cc752b" alt="University of Westminster" /></div>
+      <div class="partner-logo"><img src="https://www.figma.com/api/mcp/asset/cf3b41e1-ea1a-4b65-96e6-702461a0e1a8" alt="Liffery College" /></div>
+      <div class="partner-logo"><img src="https://www.figma.com/api/mcp/asset/88a3e11b-e1cc-4f89-b836-296846f80a21" alt="Schiller" /></div>
+      <div class="partner-logo"><img src="https://www.figma.com/api/mcp/asset/faac60f9-52c3-4625-a3b3-177f1478c09a" alt="UWS" /></div>
+      <div class="partner-logo"><img src="https://www.figma.com/api/mcp/asset/3c094cb2-037d-4974-9cb8-f38a174d9745" alt="London Campus" /></div>
+      <div class="partner-logo"><img src="https://www.figma.com/api/mcp/asset/8193eede-896c-49ce-9486-d7a6b16b23db" alt="ULaw" /></div>
+      <div class="partner-logo"><img src="https://www.figma.com/api/mcp/asset/b3d8d2c1-4e11-4144-8b86-1c0906fbeabe" alt="Partner" /></div>
+      <!-- set 2 (duplicate for seamless loop) -->
+      <div class="partner-logo" aria-hidden="true"><img src="https://www.figma.com/api/mcp/asset/d9295375-fcb3-4ea2-82d9-a7da7ad8d563" alt="" /></div>
+      <div class="partner-logo" aria-hidden="true"><img src="https://www.figma.com/api/mcp/asset/decd88d0-89a5-4e51-8868-8a7e20efc22a" alt="" /></div>
+      <div class="partner-logo" aria-hidden="true"><img src="https://www.figma.com/api/mcp/asset/88a2ae03-1cf0-41b9-93c8-b0220e523fd0" alt="" /></div>
+      <div class="partner-logo" aria-hidden="true"><img src="https://www.figma.com/api/mcp/asset/3563f145-7c2d-43ab-bde1-1a25d968c62e" alt="" /></div>
+      <div class="partner-logo" aria-hidden="true"><img src="https://www.figma.com/api/mcp/asset/c0b0065e-874a-4d2d-86c9-ac6e388a2717" alt="" /></div>
+      <div class="partner-logo" aria-hidden="true"><img src="https://www.figma.com/api/mcp/asset/41e08885-e56b-49c7-8db7-5d36e2cc752b" alt="" /></div>
+      <div class="partner-logo" aria-hidden="true"><img src="https://www.figma.com/api/mcp/asset/cf3b41e1-ea1a-4b65-96e6-702461a0e1a8" alt="" /></div>
+      <div class="partner-logo" aria-hidden="true"><img src="https://www.figma.com/api/mcp/asset/88a3e11b-e1cc-4f89-b836-296846f80a21" alt="" /></div>
+      <div class="partner-logo" aria-hidden="true"><img src="https://www.figma.com/api/mcp/asset/faac60f9-52c3-4625-a3b3-177f1478c09a" alt="" /></div>
+      <div class="partner-logo" aria-hidden="true"><img src="https://www.figma.com/api/mcp/asset/3c094cb2-037d-4974-9cb8-f38a174d9745" alt="" /></div>
+      <div class="partner-logo" aria-hidden="true"><img src="https://www.figma.com/api/mcp/asset/8193eede-896c-49ce-9486-d7a6b16b23db" alt="" /></div>
+      <div class="partner-logo" aria-hidden="true"><img src="https://www.figma.com/api/mcp/asset/b3d8d2c1-4e11-4144-8b86-1c0906fbeabe" alt="" /></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     11. PARTNER + LIST WITH US
+═══════════════════════════════════════ -->
+<section class="partner-list-section">
+  <div class="partner-cards">
+    <div class="partner-card">
+      <img class="partner-bg" src="https://www.figma.com/api/mcp/asset/794b8e18-ded7-416f-b44f-f33786cb07e2" alt="" />
+      <div class="partner-card-content">
+        <div>
+          <div class="partner-card-title">Partner With Us</div>
+          <div class="partner-card-desc">At amber, we off seamless booking process &amp; a robust sales support.</div>
+        </div>
+        <button class="partner-card-btn">Partner with us</button>
+      </div>
+    </div>
+    <div class="partner-card">
+      <img class="partner-bg" src="https://www.figma.com/api/mcp/asset/437a3f4b-6e66-41f6-bd74-f4af0cd83788" alt="" />
+      <div class="partner-card-content">
+        <div>
+          <div class="partner-card-title">List With Us</div>
+          <div class="partner-card-desc">List your properties efficiently with amber.</div>
+        </div>
+        <button class="partner-card-btn">List Property</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     12. FEATURED IN
+═══════════════════════════════════════ -->
+<section class="featured-in">
+  <div class="section-header">
+    <h2>Featured In</h2>
+  </div>
+  <div class="featured-logos">
+    <div class="feat-logo"><img src="https://www.figma.com/api/mcp/asset/1275f659-7a79-4860-b3d4-9724c7ccc2dd" alt="Times of India" /></div>
+    <div class="feat-logo"><img src="https://www.figma.com/api/mcp/asset/decd88d0-89a5-4e51-8868-8a7e20efc22a" alt="Financial Express" /></div>
+    <div class="feat-logo"><img src="https://www.figma.com/api/mcp/asset/101f8876-a111-4b37-842d-90715269bba3" alt="Invezz" /></div>
+    <div class="feat-logo"><img src="https://www.figma.com/api/mcp/asset/b0c1474d-cebe-4baf-b39a-25eb05d54a58" alt="Outlook Business" /></div>
+    <div class="feat-logo"><img src="https://www.figma.com/api/mcp/asset/26798c7b-fa60-4334-aad4-f29e0503d910" alt="YourStory" /></div>
+    <div class="feat-logo"><img src="https://www.figma.com/api/mcp/asset/fb1d4f0b-8c27-434f-83b4-ac91686bf853" alt="CNBC" /></div>
+    <div class="feat-logo"><img src="https://www.figma.com/api/mcp/asset/45d8169e-08fa-47a8-bf57-97a5dda4767f" alt="Indian Express" style="opacity:0.7" /></div>
+    <div class="feat-logo"><img src="https://www.figma.com/api/mcp/asset/1c212b1d-1d79-4493-ab66-19c3d3a194b2" alt="The Economic Times" style="opacity:0.7" /></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     13. SEO LINKS
+═══════════════════════════════════════ -->
+<section class="seo-section">
+  <div class="section-header" style="padding-bottom:24px;">
+    <h2>Hundreds Of Cities Around The World</h2>
+  </div>
+  <div class="seo-links">
+    <span class="seo-link">London</span><span class="seo-link">Glasgow</span><span class="seo-link">Leeds</span>
+    <span class="seo-link">Coventry</span><span class="seo-link">Birmingham</span><span class="seo-link">Nottingham</span>
+    <span class="seo-link">Sheffield</span><span class="seo-link">Manchester</span><span class="seo-link">Edinburgh</span>
+    <span class="seo-link">Leicester</span><span class="seo-link">Cardiff</span><span class="seo-link">Newcastle</span>
+    <span class="seo-link">Aberdeen</span><span class="seo-link">Portsmouth</span><span class="seo-link">Cambridge</span>
+    <span class="seo-link">Oxford</span><span class="seo-link">Southampton</span><span class="seo-link">Exeter</span>
+    <span class="seo-link">Bournemouth</span><span class="seo-link">Belfast</span><span class="seo-link">Bristol</span>
+    <span class="seo-link">Canterbury</span><span class="seo-link">Dublin</span><span class="seo-link">Swansea</span>
+    <span class="seo-link">Loughborough</span><span class="seo-link">Brighton</span><span class="seo-link">Derby</span>
+    <span class="seo-link">Hatfield</span><span class="seo-link">Lincoln</span><span class="seo-link">Luton</span>
+    <span class="seo-link">Plymouth</span><span class="seo-link">Dallas</span><span class="seo-link">Cork</span>
+    <span class="seo-link">Melbourne</span><span class="seo-link">Sydney</span>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     14. NEED HELP
+═══════════════════════════════════════ -->
+<section class="help-section">
+  <div>
+    <h2>Need Help?</h2>
+    <p>If you have any queries, feel free to contact us</p>
+  </div>
+  <div class="help-cards">
+    <!-- Live Chat -->
+    <div class="help-card-wrap">
+      <div class="help-badge red">
+        <div class="help-badge-dot"></div>
+        2 Mins Reply
+      </div>
+      <div class="help-card red-border">
+        <img src="https://www.figma.com/api/mcp/asset/4d7795e2-b8a3-45c3-a33a-1b6a518d296c" alt="Chat" />
+        <span>Live Chat</span>
+      </div>
+    </div>
+    <!-- WhatsApp -->
+    <div class="help-card-wrap">
+      <div class="help-badge green">
+        <div class="help-badge-dot"></div>
+        2 Mins Reply
+      </div>
+      <div class="help-card green-border">
+        <img src="https://www.figma.com/api/mcp/asset/4c318aa8-6b70-405a-81e3-93354378155a" alt="WhatsApp" />
+        <span>Chat on Whatsapp</span>
+      </div>
+    </div>
+    <!-- Email -->
+    <div class="help-card gray-border">
+      <img src="https://www.figma.com/api/mcp/asset/b22bc467-731a-4b12-91d8-3058d259ac91" alt="Email" />
+      <span>Email Us</span>
+    </div>
+    <!-- Phone -->
+    <div class="help-card gray-border">
+      <img src="https://www.figma.com/api/mcp/asset/cc92e509-9e18-4796-97ef-1d06bc733a43" alt="Phone" />
+      <span>+44 7400314942</span>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>
